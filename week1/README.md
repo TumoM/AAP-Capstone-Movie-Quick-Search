@@ -9,7 +9,7 @@ and display these results to the user in a list.
 ### Results Activity
 A RecyclerView that displays a list of all the available movies (maybe limited to a certain number).
 It shows the title and brief description. Clicking one will take you to a details page detailing more information.
-### Main Activity
+### Main Activity (Search Activity)
 This will be the activity with a search bar and buttons. Allowing the user to input a movie title to search for.
 ### Movie Details Activity
 A detailed view displaying the title, description, poster image, date released and other information relevent to the
