@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">The Movie Companion</string>
+    <string name="type_movie">Movie</string>
+    <string name="type_tv">TV</string>
+</resources>
