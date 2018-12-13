@@ -1,44 +1,54 @@
 package com.example.android.themoviecompanion;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
-    private String[] mDataset; // The array that stores each data item
+    private String[] mDataset;
 
-    @NonNull
-    @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.display_item, parent, false);
-        final LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        return new MyViewHolder((TextView)layoutInflater.inflate(R.layout.display_item, parent, false));
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.mTextView.setText(mDataset[position]);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mDataset.length;
-    }
-
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
         public TextView mTextView;
-        public MyViewHolder(TextView text){
-            super(text);
-            mTextView = text;
+        public MyViewHolder(TextView v) {
+            super(v);
+            mTextView = v;
         }
-
     }
 
+    // Provide a suitable constructor (depends on the kind of dataset)
     public RecyclerAdapter(String[] myDataset) {
         mDataset = myDataset;
     }
 
+    // Create new views (invoked by the layout manager)
+    @Override
+    public RecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                           int viewType) {
+        // create a new view
+        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.display_item, parent, false);
+        MyViewHolder vh = new MyViewHolder(v);
+        return vh;
+    }
+
+    // Replace the contents of a view (invoked by the layout manager)
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
+        holder.mTextView.setText(mDataset[position]);
+
+    }
+
+    // Return the size of your dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return mDataset.length;
+    }
 }

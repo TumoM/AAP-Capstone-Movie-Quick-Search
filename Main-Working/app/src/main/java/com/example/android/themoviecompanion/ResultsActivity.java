@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 public class ResultsActivity extends AppCompatActivity {
-
+    String[] myDataset = {"1","2","3","4","5","6","7"};
     // Declares the RecyclerView object, as well as an Adapter and Layout Manager
     // to handle list updating and row layout respectively.
     private RecyclerView recyclerView;
@@ -24,8 +24,9 @@ public class ResultsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerView.setHasFixedSize(true);
 
-//        recyclerAdapter = new RecylerAdapter(myDataset);
-//        mRecyclerView.setAdapter(mAdapter);
+        recyclerAdapter = new RecyclerAdapter(myDataset);
+        recyclerView.setAdapter(recyclerAdapter);
+
 
         ;
     }
