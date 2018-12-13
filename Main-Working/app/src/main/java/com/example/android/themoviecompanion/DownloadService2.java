@@ -29,9 +29,9 @@ import static android.content.ContentValues.TAG;
 
 public class DownloadService2 extends IntentService {
 
-//    public DownloadService2(){
-//        super(new String("test"));
-//    }
+    public DownloadService2(){
+        super(new String("test"));
+    }
 
     // eg https://api.themoviedb.org/3/movie/550?api_key=eeab5da6854350c8bf390f554ae7f997
     final String urlString = "https://api.themoviedb.org/3/movie/550?api_key=";
@@ -58,7 +58,7 @@ public class DownloadService2 extends IntentService {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        Log.d("SWAG SERVER", "Response is: "+ response.substring(0,500));
+                        Log.e("SWAG SERVER", "Response is: "+ response.substring(0,500));
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -73,7 +73,7 @@ public class DownloadService2 extends IntentService {
     }
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        Log.i("SWAGGER", "Entered DLS2");
+        Log.e("SWAGGER", "Entered DLS2");
         //String urlString = (intent.getExtras()).getString("URL");
         //Todo 1 Impliment the functionality to turn this string into the download request
         downloadString();
