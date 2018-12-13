@@ -7,7 +7,7 @@
     tools:context=".SearchActivity">
 
     <EditText
-        android:id="@+id/searchBarEditText"
+        android:id="@+id/searchEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -32,6 +32,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:onClick="onSearchClick"
         android:text="Search"
         app:layout_constraintBottom_toTopOf="@+id/favouritesFAB"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +49,7 @@
         android:checkedButton="@+id/movieRadioButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBarEditText">
+        app:layout_constraintTop_toBottomOf="@+id/searchEditText">
 
         <RadioButton
             android:id="@+id/movieRadioButton"

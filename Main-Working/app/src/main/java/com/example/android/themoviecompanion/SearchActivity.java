@@ -10,31 +10,47 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class SearchActivity extends AppCompatActivity{
+    private EditText searchET;
+    private Button searchBT;
+    private RadioGroup typeGroup;
+    Boolean connected = false;
 
-    public boolean isOnline() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
+
+
+    if (MyBroadcastReceiver.getFlag())
+
+
+
+    public void onSearchClick(View view){
+        if (connected) {
+            Intent intent = new Intent(this, ResultsActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Please try again whith network connectivity", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
+
 
     // Broadcast Receiver to checks the wifi state on a status change.
     MyBroadcastReceiver networkReciever = new MyBroadcastReceiver();
-//    {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            Log.i("DEV INFO",intent.getExtras().toString());
-//            Toast.makeText(SearchActivity.this, intent.getExtras().toString(), Toast.LENGTH_SHORT).show();
-//            //Toast.makeText(SearchActivity.this, "We are registered fam", Toast.LENGTH_SHORT).show();
-//        }
-//    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        Log.i("Start", "---------------------------------------------------------------------");
+
+        // Links components to variables
+        searchBT = (Button) findViewById(R.id.searchButton);
+        searchET = (EditText) findViewById(R.id.searchEditText);
+        typeGroup = (RadioGroup) findViewById(R.id.typeRadioGroup);
         // Declares and intent filter for wifi and airplane mode changes.
         IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         this.registerReceiver(networkReciever, filter);
