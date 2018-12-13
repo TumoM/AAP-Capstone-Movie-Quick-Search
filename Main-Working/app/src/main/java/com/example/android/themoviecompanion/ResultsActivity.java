@@ -24,8 +24,8 @@ public class ResultsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerView.setHasFixedSize(true);
 
-        recyclerAdapter = new MyAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);
+//        recyclerAdapter = new RecylerAdapter(myDataset);
+//        mRecyclerView.setAdapter(mAdapter);
 
         ;
     }

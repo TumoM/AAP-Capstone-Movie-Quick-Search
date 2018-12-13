@@ -16,7 +16,7 @@ public class dbAdapter {
         public dbHelper(Context context) {
             //TODO Implement
             super(context, DATABASE_NAME, null, DATABASE_Version);
-            this.context=context;
+//            this.context=context;
             Log.i("UPDATE","NULL");
 
         }
