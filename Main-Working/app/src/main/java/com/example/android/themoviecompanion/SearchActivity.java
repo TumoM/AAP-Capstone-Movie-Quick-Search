@@ -11,7 +11,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import static java.security.AccessController.getContext;
 
 public class SearchActivity extends AppCompatActivity{
     private EditText searchET;
@@ -27,8 +44,13 @@ public class SearchActivity extends AppCompatActivity{
 
     public void onSearchClick(View view){
         if (connected) {
-            Intent intent = new Intent(this, ResultsActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(this, ResultsActivity.class);
+            startActivity(intent);*/
+            // Starts the JobIntentService
+            Log.i("SWAG WARNING", "About to start service");
+            Intent mServiceIntent = new Intent(this, DownloadService2.class);
+            startService(new Intent(this, DownloadService2.class));
+
         } else {
             Toast.makeText(this, "Please try again whith network connectivity", Toast.LENGTH_SHORT).show();
         }
@@ -65,7 +87,11 @@ public class SearchActivity extends AppCompatActivity{
         this.registerReceiver(networkReciever, filter);
         registerReceiver(connectionBroadcastReceiver, new IntentFilter("connectionStatus"));
 
+        Utils.testHTTP();
+
+
     }
+
 
     @Override
     public void onDestroy(){

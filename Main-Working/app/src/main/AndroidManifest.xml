@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.wifi" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,11 @@
         </activity>
         <activity android:name=".ResultsActivity" />
         <activity android:name=".DetailsActivity"/>
+
+        <service
+            android:name=".DownloadService2"
+            android:exported="false"/>
+
 
     </application>
 
