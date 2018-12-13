@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,9 +19,9 @@ public class SearchActivity extends AppCompatActivity{
     private RadioGroup typeGroup;
     Boolean connected = false;
 
-
-
-    if (MyBroadcastReceiver.getFlag())
+    public void setConnected(Boolean connected) {
+        this.connected = connected;
+    }
 
 
 
@@ -37,6 +35,17 @@ public class SearchActivity extends AppCompatActivity{
 
 
     }
+
+    // An anonomys BroadcastReciever that listens for the connection status from the MyBroadcastReceiver
+    BroadcastReceiver connectionBroadcastReceiver =  new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            Bundle b = intent.getExtras();
+            connected = b.getBoolean("connected");
+            Log.i("TUMO LOG: ", "" + connected);
+        }
+    };
 
 
     // Broadcast Receiver to checks the wifi state on a status change.
@@ -54,6 +63,7 @@ public class SearchActivity extends AppCompatActivity{
         // Declares and intent filter for wifi and airplane mode changes.
         IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         this.registerReceiver(networkReciever, filter);
+        registerReceiver(connectionBroadcastReceiver, new IntentFilter("connectionStatus"));
 
     }
 
