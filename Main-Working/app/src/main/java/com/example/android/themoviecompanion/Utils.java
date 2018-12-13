@@ -2,6 +2,9 @@ package com.example.android.themoviecompanion;
 
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -49,6 +52,14 @@ public class Utils {
             e.printStackTrace();
 
         }
+    }
+
+    /*
+    * Parses a JSON String from an api into a JSON Object for manipulation.
+    **/
+    public static JSONObject stringToJsonObj(String apiString) throws JSONException {
+        JSONObject reader = new JSONObject(apiString);
+        return reader;
     }
 
 

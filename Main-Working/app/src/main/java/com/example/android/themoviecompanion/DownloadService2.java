@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,6 +14,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -58,7 +62,23 @@ public class DownloadService2 extends IntentService {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        Log.e("SWAG SERVER", "Response is: "+ response.substring(0,500));
+                       /*
+                        Currently printing raw JSON string. Fix this. Obtain the fields needed and
+                        send to database to be retrieved for the RecyclerView
+                        */
+                        JSONObject res = null;
+                        try {
+                            res = Utils.stringToJsonObj(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("SWAG SERVER", "Response is:\n"+ res.toString());
+                        try {
+                            Log.e("SWAG SERVER", "Title is: " + res.get("title"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 }, new Response.ErrorListener() {
             @Override

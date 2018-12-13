@@ -44,12 +44,20 @@ public class SearchActivity extends AppCompatActivity{
 
     public void onSearchClick(View view){
         if (connected) {
-            /*Intent intent = new Intent(this, ResultsActivity.class);
-            startActivity(intent);*/
-            // Starts the JobIntentService
+
+            // Starts the JobInIntent intent = new Intent(this, ResultsActivity.class);
+            //            startActivity(intent);tentService
             Log.i("SWAG WARNING", "About to start service");
+
+            /*
+            *  Declares and calls the service to make the search request.
+            */
             Intent mServiceIntent = new Intent(this, DownloadService2.class);
             startService(new Intent(this, DownloadService2.class));
+
+            // Launches nexr Activity (Results)
+            Intent intent = new Intent(this, ResultsActivity.class);
+            startActivity(intent);
 
         } else {
             Toast.makeText(this, "Please try again whith network connectivity", Toast.LENGTH_SHORT).show();
