@@ -1,12 +1,9 @@
 package com.example.android.themoviecompanion;
 
 import android.app.IntentService;
-import android.app.Service;
 import android.content.Intent;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,19 +15,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import static android.content.ContentValues.TAG;
-
 public class DownloadService2 extends IntentService {
 
     public DownloadService2(){
@@ -40,6 +24,7 @@ public class DownloadService2 extends IntentService {
     // eg https://api.themoviedb.org/3/movie/550?api_key=eeab5da6854350c8bf390f554ae7f997
     final String urlString = "https://api.themoviedb.org/3/movie/550?api_key=";
     final String KEY = "eeab5da6854350c8bf390f554ae7f997";
+    // eg https://api.themoviedb.org/3/search/movie?api_key=eeab5da6854350c8bf390f554ae7f997&query=Jack+Reacher
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.

@@ -1,13 +1,12 @@
 package com.example.android.themoviecompanion;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,6 +17,9 @@ public class ResultsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerAdapter;
     private RecyclerView.LayoutManager recyclerLayoutManager;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,25 +32,22 @@ public class ResultsActivity extends AppCompatActivity {
 
         final int capacity = 100;
         // fills a dummy array for testing
-        ArrayList<String> myDataset = new ArrayList<>(10);
+        ArrayList<String> myDataset = new ArrayList<>(100);
         for (int i = 0; i < capacity; i++){
             myDataset.add(Integer.toString(i+1));
         }
 
-        recyclerView.setHasFixedSize(false);
+        recyclerView.setHasFixedSize(true);
 
-        recyclerAdapter = new RecyclerAdapter(myDataset);
+        recyclerAdapter = new RecyclerViewAdapter(myDataset);
         recyclerView.setAdapter(recyclerAdapter);
 
 
-        ;
+
     }
 
     @Override
-    public View onCreateView(View parent, String name, final Context context, AttributeSet attrs) {
-        RecyclerViewClickListener listener = (view, position) -> {
-            Toast.makeText(context, "Position " + position, Toast.LENGTH_SHORT).show();
-        };
-        return super.onCreateView(parent, name, context, attrs);
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        return super.onCreateView(name, context, attrs);
     }
 }

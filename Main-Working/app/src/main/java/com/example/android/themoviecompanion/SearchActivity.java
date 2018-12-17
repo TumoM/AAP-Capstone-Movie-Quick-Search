@@ -4,37 +4,22 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import static java.security.AccessController.getContext;
 
 public class SearchActivity extends AppCompatActivity{
     private EditText searchET;
     private Button searchBT;
     private RadioGroup typeGroup;
     Boolean connected = false;
+
+
 
     public void setConnected(Boolean connected) {
         this.connected = connected;
@@ -60,7 +45,7 @@ public class SearchActivity extends AppCompatActivity{
             startActivity(intent);
 
         } else {
-            Toast.makeText(this, "Please try again whith network connectivity", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please try again with network connectivity", Toast.LENGTH_SHORT).show();
         }
 
 
