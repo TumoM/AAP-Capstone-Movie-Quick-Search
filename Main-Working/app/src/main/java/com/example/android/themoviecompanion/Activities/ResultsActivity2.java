@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.android.themoviecompanion.Movie;
 import com.example.android.themoviecompanion.MovieRecyclerViewAdapter;
 import com.example.android.themoviecompanion.R;
+import com.example.android.themoviecompanion.Utils.HTTPConstants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,11 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResultsActivity2 extends AppCompatActivity {
-//    String[] myDataset = {"1","2","3","4","5","6","7"};
     // Declares the RecyclerView object, as well as an Adapter and Layout Manager
     // to handle list updating and row layout respectively.
     private RecyclerView recyclerView;
-    private MovieRecyclerViewAdapter movieAdapapter;
+    private MovieRecyclerViewAdapter movieRecyclerAdapapter;
     private RecyclerView.LayoutManager recyclerLayoutManager;
     private List<Movie> movieList;
     private RequestQueue queue;
@@ -48,7 +48,6 @@ public class ResultsActivity2 extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.displayRV);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(movieAdapapter);
         recyclerLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recyclerLayoutManager);
         movieList = new ArrayList<>();
@@ -60,14 +59,19 @@ public class ResultsActivity2 extends AppCompatActivity {
             myDataset.add(Integer.toString(i+1));
         }*/
 
-      /*  recyclerAdapter = new MovieRecyclerViewAdapter(myDataset);
-        recyclerView.setAdapter(recyclerAdapter);*/
-        getMovies("Jack%20Reacher");
+        movieList = getMovies("Search");
+        // sets the adapter to display the contents on the RecyclerView.
+        movieRecyclerAdapapter = new MovieRecyclerViewAdapter(this,movieList);
+        recyclerView.setAdapter(movieRecyclerAdapapter);
+        movieRecyclerAdapapter.notifyDataSetChanged();
+
+
+
     }
 
     public List<Movie> getMovies(String searchTerm) {
         movieList.clear();
-        String url = "https://api.themoviedb.org/3/search/movie?api_key=eeab5da6854350c8bf390f554ae7f997&query=Jack+Reacher";
+        String url = "https://api.themoviedb.org/3/search/movie?api_key=eeab5da6854350c8bf390f554ae7f997&query=Batman";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 url, new Response.Listener<JSONObject>() {
             @Override
@@ -83,15 +87,14 @@ public class ResultsActivity2 extends AppCompatActivity {
                         // Creates a new movie item, and then rips the appropriate JSON Data
                         Movie movie = new Movie();
                         movie.setTitle(movieObj.getString("title"));
-                        movie.setYear("Year Released: " + movieObj.getString("release_date"));
-                        movie.setPoster(movieObj.getString("poster_path"));
+                        movie.setYear("Year Released: " + movieObj.getString("release_date")
+                        .substring(0,4));
+                        movie.setPoster(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
                         movie.setOverview(movieObj.getString("overview"));
 
 
                         Log.d("Movies: ", movie.getTitle());
-                        Log.d("Year: ", movie.getYear());
-                        Log.d("Poster URI", movie.getPosterPath());
-                        Log.d("Plot: ", movie.getOverview());
+                        Log.d("Poster URL", movie.getPosterPath());
                         movieList.add(movie);
 
 
@@ -99,7 +102,7 @@ public class ResultsActivity2 extends AppCompatActivity {
                     /**
                      * Very important!! Otherwise, we wont see anything being displayed.
                      */
-                    //movieAdapapter.notifyDataSetChanged();//Important!!
+                    movieRecyclerAdapapter.notifyDataSetChanged();//Important!!
 
 
                 }catch (JSONException e) {

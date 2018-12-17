@@ -1,6 +1,7 @@
 package com.example.android.themoviecompanion;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.android.themoviecompanion.Activities.DetailsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     private Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    MovieRecyclerViewAdapter(Context context, List<Movie> movies) {
+    public MovieRecyclerViewAdapter(Context context, List<Movie> movies) {
         this.context = context;
         movieList = movies;
     }
@@ -52,7 +53,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
             Movie movie = movieList.get(position);
             String posterURI = movie.getPosterPath();
             holder.mTitle.setText(movie.getTitle());
-            holder.mCatagory.setText(movie.getCategory());
+            //holder.mCatagory.setText(movie.getCategory());
             holder.mYear.setText(movie.getYear());
             Picasso.get().load(posterURI).placeholder(android.R.drawable.ic_btn_speak_now)
             .into(holder.mPoster);
@@ -73,7 +74,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         public TextView mTitle, mYear, mCatagory;
         public ImageView mPoster;
 
-        ViewHolder(View v, Context nextContext) {
+        ViewHolder(View v, final Context nextContext) {
             super(v);
             context = nextContext;
             mTitle = (TextView) v.findViewById(R.id.movieTitle);
@@ -85,7 +86,14 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, "Tapped!!!", Toast.LENGTH_SHORT).show();
+
+                    Movie movie = movieList.get(getAdapterPosition());
+
+                    Intent intent = new Intent(v.getContext(), DetailsActivity.class);
+
+                    intent.putExtra("movie", movie);
+                    context.startActivity(intent);
+
                 }
             });
 
