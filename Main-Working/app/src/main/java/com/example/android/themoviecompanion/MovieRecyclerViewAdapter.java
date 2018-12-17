@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -24,22 +27,19 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
 
 
-    // Create new views (invoked by the layout manager)
+    // Creates the method that will create and return the new view based on the layout file supplied.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        // create a new view
-        // Inflate the custom layout
-        View resultsView = inflater.inflate(R.layout.display_item, parent, false);
 
-        // Return a new holder instance
-        return new ViewHolder(resultsView);
-        /*TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.display_item, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;*/
+        // Inflate the custom layout
+        View resultsView = inflater.inflate(R.layout.movie_display, parent, false);
+
+
+        // Return a new holder instance using custom ViewHolder Class
+        return new ViewHolder(resultsView, context);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -49,12 +49,18 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         // - replace the contents of the view with that element
         if (holder instanceof ViewHolder) {
             ViewHolder rowHolder = (ViewHolder) holder;
-            Movie title = movieList.get(position);
-            TextView textView = holder.mTitle;
+            Movie movie = movieList.get(position);
+            String posterURI = movie.getPoster();
+            holder.mTitle.setText(movie.getTitle());
+            holder.mCatagory.setText(movie.getCategory());
+            holder.mYear.setText(movie.getYear());
+            Picasso.get().load(posterURI).placeholder(android.R.drawable.ic_btn_speak_now)
+            .into(holder.mPoster);
             //textView.setText(title);
             //set values of data here
 
         }
+
 
     }
     // Return the size of your dataset (invoked by the layout manager)
@@ -63,19 +69,26 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         return movieList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView mTitle, mYear, mCatagory;
-        ImageView mPoster;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public TextView mTitle, mYear, mCatagory;
+        public ImageView mPoster;
 
-        ViewHolder(View v) {
+        ViewHolder(View v, Context nextContext) {
             super(v);
+            context = nextContext;
             mTitle = (TextView) v.findViewById(R.id.movieTitle);
             mYear = (TextView) v.findViewById(R.id.releaseYear);
             mCatagory = (TextView) v.findViewById(R.id.movieCatoagory);
             mPoster = (ImageView) v.findViewById(R.id.posterImage);
 
             // mListener = listener;
-//            v.setOnClickListener(this);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Tapped!!!", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
         @Override
         public void onClick(View view) {

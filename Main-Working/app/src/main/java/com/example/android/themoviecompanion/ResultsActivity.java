@@ -8,8 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
-import java.util.ArrayList;
-
 public class ResultsActivity extends AppCompatActivity {
 //    String[] myDataset = {"1","2","3","4","5","6","7"};
     // Declares the RecyclerView object, as well as an Adapter and Layout Manager
@@ -30,17 +28,17 @@ public class ResultsActivity extends AppCompatActivity {
         recyclerLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recyclerLayoutManager);
 
-        final int capacity = 100;
+        /*final int capacity = 100;
         // fills a dummy array for testing
         ArrayList<String> myDataset = new ArrayList<>(100);
         for (int i = 0; i < capacity; i++){
             myDataset.add(Integer.toString(i+1));
-        }
+        }*/
 
         recyclerView.setHasFixedSize(true);
 
-        recyclerAdapter = new RecyclerViewAdapter(myDataset);
-        recyclerView.setAdapter(recyclerAdapter);
+      /*  recyclerAdapter = new MovieRecyclerViewAdapter(myDataset);
+        recyclerView.setAdapter(recyclerAdapter);*/
 
 
 
