@@ -1,7 +1,9 @@
-package com.example.android.themoviecompanion;
+package com.example.android.themoviecompanion.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.example.android.themoviecompanion.R;
 
 public class DetailsActivity extends AppCompatActivity {
 

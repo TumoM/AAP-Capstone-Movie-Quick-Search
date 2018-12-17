@@ -1,4 +1,4 @@
-package com.example.android.themoviecompanion;
+package com.example.android.themoviecompanion.Utils;
 
 import android.util.Log;
 
@@ -9,12 +9,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import static android.content.ContentValues.TAG;
 
-public class Utils {
+public class UtilsClass {
     public static void testHTTP(){
         try {
             Log.i("SWAG", "testHTTP: ");

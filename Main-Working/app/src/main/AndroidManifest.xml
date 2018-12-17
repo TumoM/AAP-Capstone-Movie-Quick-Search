@@ -14,18 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity">
+        <activity android:name=".Activities.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ResultsActivity" />
-        <activity android:name=".DetailsActivity"/>
+        <activity android:name=".Activities.ResultsActivity" />
+        <activity android:name=".Activities.ResultsActivity2" />
+        <activity android:name=".Activities.DetailsActivity"/>
 
         <service
-            android:name=".DownloadService2"
+            android:name=".Utils.DownloadService2"
+            android:exported="false"/>
+        <service
+            android:name=".Utils.DownloadService3"
             android:exported="false"/>
 
 

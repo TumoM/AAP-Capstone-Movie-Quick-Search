@@ -1,4 +1,4 @@
-package com.example.android.themoviecompanion;
+package com.example.android.themoviecompanion.Activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,6 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.example.android.themoviecompanion.MyBroadcastReceiver;
+import com.example.android.themoviecompanion.R;
+import com.example.android.themoviecompanion.Utils.DownloadService2;
+import com.example.android.themoviecompanion.Utils.UtilsClass;
 
 public class SearchActivity extends AppCompatActivity{
     private EditText searchET;
@@ -38,10 +43,10 @@ public class SearchActivity extends AppCompatActivity{
             *  Declares and calls the service to make the search request.
             */
             Intent mServiceIntent = new Intent(this, DownloadService2.class);
-            startService(new Intent(this, DownloadService2.class));
+            //startService(mServiceIntent);
 
             // Launches nexr Activity (Results)
-            Intent intent = new Intent(this, ResultsActivity.class);
+            Intent intent = new Intent(this, ResultsActivity2.class);
             startActivity(intent);
 
         } else {
@@ -80,7 +85,7 @@ public class SearchActivity extends AppCompatActivity{
         this.registerReceiver(networkReciever, filter);
         registerReceiver(connectionBroadcastReceiver, new IntentFilter("connectionStatus"));
 
-        Utils.testHTTP();
+        UtilsClass.testHTTP();
 
 
     }

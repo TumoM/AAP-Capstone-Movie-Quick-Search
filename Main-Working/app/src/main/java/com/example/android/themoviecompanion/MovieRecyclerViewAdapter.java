@@ -50,7 +50,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         if (holder instanceof ViewHolder) {
             ViewHolder rowHolder = (ViewHolder) holder;
             Movie movie = movieList.get(position);
-            String posterURI = movie.getPoster();
+            String posterURI = movie.getPosterPath();
             holder.mTitle.setText(movie.getTitle());
             holder.mCatagory.setText(movie.getCategory());
             holder.mYear.setText(movie.getYear());

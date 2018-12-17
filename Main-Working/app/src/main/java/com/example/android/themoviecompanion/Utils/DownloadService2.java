@@ -1,4 +1,4 @@
-package com.example.android.themoviecompanion;
+package com.example.android.themoviecompanion.Utils;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -53,7 +53,7 @@ public class DownloadService2 extends IntentService {
                         */
                         JSONObject res = null;
                         try {
-                            res = Utils.stringToJsonObj(response);
+                            res = UtilsClass.stringToJsonObj(response);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
