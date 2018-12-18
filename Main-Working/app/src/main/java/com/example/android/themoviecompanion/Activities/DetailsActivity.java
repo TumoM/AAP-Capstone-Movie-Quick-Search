@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.themoviecompanion.Movie;
+import com.example.android.themoviecompanion.DataBase.Movie;
 import com.example.android.themoviecompanion.R;
 import com.squareup.picasso.Picasso;
 

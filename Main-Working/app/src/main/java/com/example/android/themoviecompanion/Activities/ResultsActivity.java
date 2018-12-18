@@ -15,7 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.android.themoviecompanion.Movie;
+import com.example.android.themoviecompanion.DataBase.Movie;
 import com.example.android.themoviecompanion.MovieRecyclerViewAdapter;
 import com.example.android.themoviecompanion.R;
 import com.example.android.themoviecompanion.Utils.HTTPConstants;

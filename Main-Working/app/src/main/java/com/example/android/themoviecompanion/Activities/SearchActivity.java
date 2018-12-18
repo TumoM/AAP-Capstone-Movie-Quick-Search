@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.android.themoviecompanion.MyBroadcastReceiver;
 import com.example.android.themoviecompanion.R;
-import com.example.android.themoviecompanion.Utils.UtilsClass;
 
 public class SearchActivity extends AppCompatActivity{
     private EditText searchET;
@@ -27,8 +26,6 @@ public class SearchActivity extends AppCompatActivity{
 
     public void setConnected(Boolean connected) {
         this.connected = connected;
-        if (5 == 5){}
-        else{}
     }
 
 
@@ -38,8 +35,9 @@ public class SearchActivity extends AppCompatActivity{
         {
             if (searchET.getText().length() > 0) // checking for a valid length input
             {
+                // Launches nexr Activity (Results)
                 Intent intent = new Intent(this, ResultsActivity2.class);
-                intent.putExtra("Search", searchBT.getText().toString());
+                intent.putExtra("Search", searchET.getText().toString());
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show();
@@ -78,10 +76,6 @@ public class SearchActivity extends AppCompatActivity{
         IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         this.registerReceiver(networkReciever, filter);
         registerReceiver(connectionBroadcastReceiver, new IntentFilter("connectionStatus"));
-
-        UtilsClass.testHTTP();
-
-
     }
 
 

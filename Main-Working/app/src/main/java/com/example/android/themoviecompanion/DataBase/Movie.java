@@ -1,4 +1,4 @@
-package com.example.android.themoviecompanion;
+package com.example.android.themoviecompanion.DataBase;
 
 import java.io.Serializable;
 

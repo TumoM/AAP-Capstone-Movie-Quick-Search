@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.themoviecompanion.Activities.DetailsActivity;
+import com.example.android.themoviecompanion.DataBase.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -43,13 +44,14 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         return new ViewHolder(resultsView, context);
     }
 
+
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        if (holder instanceof ViewHolder) {
-            ViewHolder rowHolder = (ViewHolder) holder;
+        if (holder instanceof RecyclerView.ViewHolder) {
+            RecyclerView.ViewHolder rowHolder = (RecyclerView.ViewHolder) holder;
             Movie movie = movieList.get(position);
             String posterURI = movie.getPosterPath();
             holder.mTitle.setText(movie.getTitle());
@@ -67,7 +69,8 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return movieList.size();
+        if (movieList == null){return 0;}
+        else {return movieList.size();}
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
