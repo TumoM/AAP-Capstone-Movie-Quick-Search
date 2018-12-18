@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.android.themoviecompanion.MyBroadcastReceiver;
 import com.example.android.themoviecompanion.R;
-import com.example.android.themoviecompanion.Utils.DownloadService2;
 import com.example.android.themoviecompanion.Utils.UtilsClass;
 
 public class SearchActivity extends AppCompatActivity{
@@ -28,34 +27,29 @@ public class SearchActivity extends AppCompatActivity{
 
     public void setConnected(Boolean connected) {
         this.connected = connected;
+        if (5 == 5){}
+        else{}
     }
 
 
 
-    public void onSearchClick(View view){
-        if (connected) {
-
-            // Starts the JobInIntent intent = new Intent(this, ResultsActivity.class);
-            //            startActivity(intent);tentService
-            Log.i("SWAG WARNING", "About to start service");
-
-            /*
-            *  Declares and calls the service to make the search request.
-            */
-            Intent mServiceIntent = new Intent(this, DownloadService2.class);
-            //startService(mServiceIntent);
-
-            // Launches nexr Activity (Results)
-            Intent intent = new Intent(this, ResultsActivity2.class);
-            startActivity(intent);
-
-        } else {
-            Toast.makeText(this, "Please try again with network connectivity", Toast.LENGTH_SHORT).show();
+    public void onSearchClick(View view) {
+        if (connected)  // connected to the internet
+        {
+            if (searchET.getText().length() > 0) // checking for a valid length input
+            {
+                Intent intent = new Intent(this, ResultsActivity2.class);
+                intent.putExtra("Search", searchBT.getText().toString());
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Please try again with network connectivity", Toast.LENGTH_SHORT).show();
+                searchET.setText("");
+            }
         }
+        else{
 
-
+        }
     }
-
     // An anonomys BroadcastReciever that listens for the connection status from the MyBroadcastReceiver
     BroadcastReceiver connectionBroadcastReceiver =  new BroadcastReceiver() {
         @Override
