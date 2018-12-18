@@ -5,10 +5,9 @@ import android.os.AsyncTask;
 import com.example.android.themoviecompanion.DataBase.Movie;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
-public abstract class UrlTask extends AsyncTask<String,String,List<Movie>> {
+public abstract class UrlTask extends AsyncTask<String,String,ArrayList<Movie>> {
 
     @Override
     public ArrayList<Movie> doInBackground(String... params) {

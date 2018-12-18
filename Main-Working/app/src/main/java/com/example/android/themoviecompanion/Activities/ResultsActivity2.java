@@ -1,6 +1,7 @@
 package com.example.android.themoviecompanion.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,23 +19,24 @@ import com.android.volley.toolbox.HurlStack;
 import com.example.android.themoviecompanion.DataBase.Movie;
 import com.example.android.themoviecompanion.MovieRecyclerViewAdapter;
 import com.example.android.themoviecompanion.R;
+import com.example.android.themoviecompanion.Utils.DownloadService3;
 import com.example.android.themoviecompanion.Utils.UrlTask;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ResultsActivity2 extends AppCompatActivity {
     // Declares the RecyclerView object, as well as an Adapter and Layout Manager
     // to handle list updating and row layout respectively.
-    private RecyclerView recyclerView;
-    private MovieRecyclerViewAdapter movieRecyclerAdapapter;
-    private RecyclerView.LayoutManager recyclerLayoutManager;
-    private ArrayList<Movie> movieList;
+    private static RecyclerView recyclerView;
+    static MovieRecyclerViewAdapter movieRecyclerAdapapter;
+    static RecyclerView.LayoutManager recyclerLayoutManager;
+    static ArrayList<Movie> movieList;
     //private RequestQueue queue;
     RequestQueue mRequestQueue;
     Cache cache;
     Network network;
-    private String search;
+    static String search;
+    static Context context2;
 
 
 
@@ -49,6 +51,7 @@ public class ResultsActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
+        context2 = this;
         //queue = Volley.newRequestQueue(this);
         // Instantiate the cache
         cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -66,17 +69,34 @@ public class ResultsActivity2 extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.displayRV);
 
         movieList = new ArrayList<>();
+        recyclerView.setHasFixedSize(true);
+        recyclerLayoutManager = new LinearLayoutManager(context2);
+        recyclerView.setLayoutManager(recyclerLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        movieRecyclerAdapapter = new MovieRecyclerViewAdapter(context2,movieList);
 
 
         search = getIntent().getStringExtra("Search");
         // movieList = getMovies(search);
-        // movieList = JSONhelper.getJSON(search);
-        new Viewdata().execute(search);
+        // movieList = JSONhelper.getJSON(search)
+        movieRecyclerAdapapter.notifyDataSetChanged();
 
+        Intent mServiceIntent = new Intent(this, DownloadService3.class);
+        String search = getIntent().getStringExtra("Search");
+        mServiceIntent.putExtra("Search", search);
+        startService(mServiceIntent);
 
 
     }
-    class Viewdata extends UrlTask{
+
+    public static void getData(){
+        new Viewdata().execute(search);
+    }
+
+    public static void setMovieList(ArrayList<Movie> movies){
+
+    }
+    public static class Viewdata extends UrlTask{
 
 
         @Override
@@ -86,14 +106,14 @@ public class ResultsActivity2 extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(List<Movie> movies) {
+        protected void onPostExecute(ArrayList<Movie> movies) {
             super.onPostExecute(movies);
-            movieList = (ArrayList<Movie>) movies;
+            movieList = movies;
             recyclerView.setHasFixedSize(true);
-            recyclerLayoutManager = new LinearLayoutManager(ResultsActivity2.this);
+            recyclerLayoutManager = new LinearLayoutManager(context2);
             recyclerView.setLayoutManager(recyclerLayoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-            movieRecyclerAdapapter = new MovieRecyclerViewAdapter(ResultsActivity2.this,movieList);
+            movieRecyclerAdapapter = new MovieRecyclerViewAdapter(context2,movieList);
             recyclerView.setAdapter(movieRecyclerAdapapter);
             movieRecyclerAdapapter.notifyDataSetChanged();
 

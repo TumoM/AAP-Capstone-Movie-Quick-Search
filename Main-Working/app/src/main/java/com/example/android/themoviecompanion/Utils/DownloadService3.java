@@ -5,17 +5,10 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.android.themoviecompanion.Activities.ResultsActivity2;
 import com.example.android.themoviecompanion.DataBase.Movie;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -52,51 +45,13 @@ public class DownloadService3 extends IntentService {
         Log.e("SWAGGER", "Entered DLS2");
         //String urlString = (intent.getExtras()).getString("URL");
         //Todo 1 Impliment the functionality to turn this string into the download request
-        downloadString();
+        ResultsActivity2.getData();
 
     }
-    public List<Movie> getMovies(String searchTerm){
+    public List<Movie> getMovies(String searchTerm) {
         Log.d("CHECK-IN", "Running getMovies");
         movieList.clear();
         String url = HTTPConstants.baseURLSerach + searchTerm;
-        Log.i("Search URL", url);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                try {
-                    JSONArray moviesArray = response.getJSONArray("results");
-                    for (int i = 0; i < moviesArray.length(); i++) {
-                        JSONObject movieObj = moviesArray.getJSONObject(i);
-                        Movie movie = new Movie();
-                        movie.setTitle(movieObj.getString("title"));
-                        movie.setYear(movieObj.getString("release_date"));
-                        movie.setPoster(movieObj.getString("poster_path"));
-                        movie.setOverview(movieObj.getString("overview"));
-
-                        Log.d("Movies: ", movie.getTitle()); }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        queue.add(jsonObjectRequest);
         return movieList;
     }
 }
-//    URL url = new URL(urlString);
-//    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//   try {
-//        InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-//        readStream(in);
-//    } finally {
-//        urlConnection.disconnect();
-//    }
-
