@@ -9,12 +9,16 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.android.themoviecompanion.Movie;
 import com.example.android.themoviecompanion.MovieRecyclerViewAdapter;
 import com.example.android.themoviecompanion.R;
@@ -34,7 +38,15 @@ public class ResultsActivity2 extends AppCompatActivity {
     private MovieRecyclerViewAdapter movieRecyclerAdapapter;
     private RecyclerView.LayoutManager recyclerLayoutManager;
     private List<Movie> movieList;
-    private RequestQueue queue;
+    //private RequestQueue queue;
+    RequestQueue mRequestQueue;
+    Cache cache;
+    Network network;
+
+
+
+
+
 
 
 
@@ -44,7 +56,19 @@ public class ResultsActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
-        queue = Volley.newRequestQueue(this);
+        //queue = Volley.newRequestQueue(this);
+        // Instantiate the cache
+        cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
+        // Set up the network to use HttpURLConnection as the HTTP client.
+        network = new BasicNetwork(new HurlStack());
+
+        // Instantiate the RequestQueue with the cache and network.
+        mRequestQueue = new RequestQueue(cache, network);
+
+        // Start the queue
+        mRequestQueue.start();
+
 
         recyclerView = (RecyclerView) findViewById(R.id.displayRV);
         recyclerView.setHasFixedSize(true);
@@ -52,12 +76,6 @@ public class ResultsActivity2 extends AppCompatActivity {
         recyclerView.setLayoutManager(recyclerLayoutManager);
         movieList = new ArrayList<>();
 
-        /*final int capacity = 100;
-        // fills a dummy array for testing
-        ArrayList<String> myDataset = new ArrayList<>(100);
-        for (int i = 0; i < capacity; i++){
-            myDataset.add(Integer.toString(i+1));
-        }*/
 
         movieList = getMovies("Search");
         // sets the adapter to display the contents on the RecyclerView.
@@ -120,7 +138,7 @@ public class ResultsActivity2 extends AppCompatActivity {
             }
         });
 
-        queue.add(jsonObjectRequest);
+        mRequestQueue.add(jsonObjectRequest);
 
         return movieList;
 

@@ -42,12 +42,12 @@ public class SearchActivity extends AppCompatActivity{
                 intent.putExtra("Search", searchBT.getText().toString());
                 startActivity(intent);
             } else {
-                Toast.makeText(this, "Please try again with network connectivity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show();
                 searchET.setText("");
             }
         }
         else{
-
+            Toast.makeText(this, "Please try again with network connectivity", Toast.LENGTH_SHORT).show();
         }
     }
     // An anonomys BroadcastReciever that listens for the connection status from the MyBroadcastReceiver
