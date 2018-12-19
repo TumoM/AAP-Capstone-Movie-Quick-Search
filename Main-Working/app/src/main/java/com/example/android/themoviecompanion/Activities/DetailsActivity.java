@@ -6,8 +6,8 @@ import android.text.method.ScrollingMovementMethod;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.themoviecompanion.DataBase.Movie;
 import com.example.android.themoviecompanion.R;
+import com.example.android.themoviecompanion.Utils.Movie;
 import com.squareup.picasso.Picasso;
 
 public class DetailsActivity extends AppCompatActivity {

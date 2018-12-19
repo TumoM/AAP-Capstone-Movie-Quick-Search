@@ -2,8 +2,6 @@ package com.example.android.themoviecompanion.Utils;
 
 import android.os.AsyncTask;
 
-import com.example.android.themoviecompanion.DataBase.Movie;
-
 import java.util.ArrayList;
 
 

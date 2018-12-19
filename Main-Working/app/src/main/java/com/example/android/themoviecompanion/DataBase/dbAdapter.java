@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class dbAdapter {
     // TODO 1 Define the functions of the database
-    String DATABASE_NAME = "test";
+    String DATABASE_NAME = "movies";
     int DATABASE_Version = 1;
 
 

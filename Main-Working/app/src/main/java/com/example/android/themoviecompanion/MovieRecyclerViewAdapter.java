@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.themoviecompanion.Activities.DetailsActivity;
-import com.example.android.themoviecompanion.DataBase.Movie;
+import com.example.android.themoviecompanion.Utils.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

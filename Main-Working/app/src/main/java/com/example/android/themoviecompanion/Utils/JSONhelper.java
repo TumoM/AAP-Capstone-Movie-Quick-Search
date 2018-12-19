@@ -2,8 +2,6 @@ package com.example.android.themoviecompanion.Utils;
 
 import android.util.Log;
 
-import com.example.android.themoviecompanion.DataBase.Movie;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

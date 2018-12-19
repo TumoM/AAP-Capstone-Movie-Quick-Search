@@ -16,10 +16,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
-import com.example.android.themoviecompanion.DataBase.Movie;
 import com.example.android.themoviecompanion.MovieRecyclerViewAdapter;
 import com.example.android.themoviecompanion.R;
 import com.example.android.themoviecompanion.Utils.DownloadService3;
+import com.example.android.themoviecompanion.Utils.Movie;
 import com.example.android.themoviecompanion.Utils.UrlTask;
 
 import java.util.ArrayList;

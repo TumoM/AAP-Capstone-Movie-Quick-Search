@@ -8,7 +8,6 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.android.themoviecompanion.Activities.ResultsActivity2;
-import com.example.android.themoviecompanion.DataBase.Movie;
 
 import java.util.List;
 
