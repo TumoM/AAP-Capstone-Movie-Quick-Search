@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.example.android.themoviecompanion.Activities.ResultsActivity2;
 
 import java.util.List;
@@ -33,12 +32,7 @@ public class DownloadService3 extends IntentService {
         super(name);
     }
 
-    public void downloadString(){
-        // Instantiate the RequestQueue.
-        queue  = Volley.newRequestQueue(getApplicationContext());
 
-        getMovies("Jack");
-    }
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         Log.e("SWAGGER", "Entered DLS2");

@@ -2,10 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.themoviecompanion">
 
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.wifi" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -23,16 +25,16 @@
         </activity>
         <activity android:name=".Activities.ResultsActivity" />
         <activity android:name=".Activities.ResultsActivity2" />
-        <activity android:name=".Activities.DetailsActivity"/>
+        <activity android:name=".Activities.DetailsActivity" />
 
         <service
             android:name=".Utils.DownloadService2"
-            android:exported="false"/>
+            android:exported="false" />
         <service
             android:name=".Utils.DownloadService3"
-            android:exported="false"/>
+            android:exported="false" />
 
-
+        <activity android:name=".Activities.FavouritesActivity"></activity>
     </application>
 
 </manifest>

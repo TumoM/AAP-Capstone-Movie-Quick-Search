@@ -48,9 +48,10 @@ public class JSONhelper{
                     Movie movie = new Movie();
                     movie.setTitle(movieObj.getString("title"));
                     movie.setYear("Year Released: " + movieObj.getString("release_date"));
-                    //.substring(0,4));
+                    movie.setId(movieObj.getInt("id"));
+                    movie.setPlot(movieObj.getString("plot"));
                     movie.setPoster(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
-                    movie.setOverview(movieObj.getString("overview"));
+                    movie.setFavourite(false);
 
                     Log.d("DEBUG", "Movie Added: "+movie.getTitle());
                     data.add(movie);

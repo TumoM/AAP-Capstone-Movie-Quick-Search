@@ -16,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
+import com.example.android.themoviecompanion.DataBase.DatabaseHelper;
 import com.example.android.themoviecompanion.MovieRecyclerViewAdapter;
 import com.example.android.themoviecompanion.R;
 import com.example.android.themoviecompanion.Utils.DownloadService3;
@@ -39,7 +40,7 @@ public class ResultsActivity2 extends AppCompatActivity {
     static Context context2;
 
 
-
+    static DatabaseHelper db;
 
 
 
@@ -52,6 +53,7 @@ public class ResultsActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_results);
 
         context2 = this;
+        db = new DatabaseHelper(context2);
         //queue = Volley.newRequestQueue(this);
         // Instantiate the cache
         cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -109,6 +111,10 @@ public class ResultsActivity2 extends AppCompatActivity {
         protected void onPostExecute(ArrayList<Movie> movies) {
             super.onPostExecute(movies);
             movieList = movies;
+
+            for (Movie movie: movies) {
+                db.insertMovie(movie.getTitle());
+            }
             recyclerView.setHasFixedSize(true);
             recyclerLayoutManager = new LinearLayoutManager(context2);
             recyclerView.setLayoutManager(recyclerLayoutManager);
@@ -148,7 +154,7 @@ public class ResultsActivity2 extends AppCompatActivity {
                         movie.setYear("Year Released: " + movieObj.getString("release_date"));
                         //.substring(0,4));
                         movie.setPoster(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
-                        movie.setOverview(movieObj.getString("overview"));
+                        movie.setPlot(movieObj.getString("overview"));
 
 
                         Log.d("Movies: ", movie.getTitle());

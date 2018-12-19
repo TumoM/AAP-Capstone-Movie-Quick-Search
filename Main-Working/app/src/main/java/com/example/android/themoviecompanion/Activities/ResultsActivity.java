@@ -83,7 +83,7 @@ public class ResultsActivity extends AppCompatActivity {
                         movie.setTitle(movieObj.getString("title"));
                         movie.setYear(movieObj.getString("release_date"));
                         movie.setPoster(movieObj.getString("poster_path"));
-                        movie.setOverview(movieObj.getString("overview"));
+                        movie.setPlot(movieObj.getString("overview"));
 
                         Log.d("Movies: ", movie.getTitle()); }
                 }catch (JSONException e){

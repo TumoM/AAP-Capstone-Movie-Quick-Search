@@ -31,7 +31,7 @@ public class DetailsActivity extends AppCompatActivity {
         movie = (Movie) getIntent().getSerializableExtra("movie");
         title.setText(movie.getTitle());
         year.setText(movie.getYear().substring(14));
-        plot.setText(movie.getOverview());
+        plot.setText(movie.getPlot());
         plot.setMovementMethod(new ScrollingMovementMethod());
         Picasso.get().load(movie.getPosterPath()).placeholder(android.R.drawable.ic_btn_speak_now)
                 .into(poster);

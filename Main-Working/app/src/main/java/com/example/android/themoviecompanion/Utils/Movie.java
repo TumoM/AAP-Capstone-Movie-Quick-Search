@@ -3,7 +3,9 @@ package com.example.android.themoviecompanion.Utils;
 import java.io.Serializable;
 
 public class Movie implements Serializable {
-    String title, year, posterPath, overview;
+    String title, year, posterPath, plot;
+    int id;
+    boolean favourite;
 
     public Movie (){}
 
@@ -19,9 +21,14 @@ public class Movie implements Serializable {
         return year;
     }
 
-    public String getCategory() {
-        return null;
+    public int getId() {
+        return id;
     }
+
+    public String getPlot(){ return plot;}
+
+    public boolean getFavourite() {return favourite;}
+
 
     public void setTitle(String title) {
         this.title = title;
@@ -35,9 +42,11 @@ public class Movie implements Serializable {
         this.posterPath = poster_path;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
+    public void setPlot(String overview) {
+        this.plot = overview;
     }
 
-    public String getOverview() {return overview;}
+    public void setId(int id) {this.id = id;}
+
+    public void setFavourite(boolean flag){ this.favourite = flag;}
 }
