@@ -2,6 +2,7 @@ package com.example.android.themoviecompanion.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ public class DetailsActivity extends AppCompatActivity {
         title.setText(movie.getTitle());
         year.setText(movie.getYear().substring(14));
         plot.setText(movie.getOverview());
+        plot.setMovementMethod(new ScrollingMovementMethod());
         Picasso.get().load(movie.getPosterPath()).placeholder(android.R.drawable.ic_btn_speak_now)
                 .into(poster);
     }
