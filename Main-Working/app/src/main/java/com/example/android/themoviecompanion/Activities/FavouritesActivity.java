@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.android.themoviecompanion.DataBase.DatabaseHelper;
 import com.example.android.themoviecompanion.DataBase.DbMovie;
@@ -22,6 +24,7 @@ public class FavouritesActivity extends AppCompatActivity {
     private ArrayList<DbMovie> movieList;
 
     private DatabaseHelper db;
+    private TextView noResultTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +32,19 @@ public class FavouritesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
 
         recyclerView = (RecyclerView) findViewById(R.id.displayRV);
+        noResultTextView = (TextView) findViewById(R.id.noResultsTextView);
 
         movieList = new ArrayList<>();
         db = new DatabaseHelper(this);
-        movieList.addAll((ArrayList<DbMovie>)db.getAllFavouriteMovies());
-        recyclerView.setHasFixedSize(true);
-        recyclerLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(recyclerLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        favouritesRecyclerViewAdapter = new FavouritesRecyclerViewAdapter(this,movieList);
-        recyclerView.setAdapter(favouritesRecyclerViewAdapter);
-
+        if (db.getMoviesCount() > 0) {
+            movieList.addAll((ArrayList<DbMovie>) db.getAllFavouriteMovies());
+            recyclerView.setHasFixedSize(true);
+            recyclerLayoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(recyclerLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            favouritesRecyclerViewAdapter = new FavouritesRecyclerViewAdapter(this, movieList);
+            recyclerView.setAdapter(favouritesRecyclerViewAdapter);
+        }
+        else{ noResultTextView.setVisibility(View.VISIBLE);}
     }
 }

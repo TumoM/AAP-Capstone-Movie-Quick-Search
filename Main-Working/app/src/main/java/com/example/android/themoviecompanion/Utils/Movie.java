@@ -1,11 +1,14 @@
 package com.example.android.themoviecompanion.Utils;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class Movie implements Serializable {
     String title, year, posterPath, plot;
     int id;
     boolean favourite;
+    Bitmap poster;
 
     public Movie (){}
 
@@ -29,6 +32,9 @@ public class Movie implements Serializable {
 
     public boolean getFavourite() {return favourite;}
 
+    public Bitmap getPoster() {
+        return poster;
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -38,7 +44,7 @@ public class Movie implements Serializable {
         this.year = year;
     }
 
-    public void setPoster(String poster_path) {
+    public void setPosterPath(String poster_path) {
         this.posterPath = poster_path;
     }
 
@@ -49,4 +55,8 @@ public class Movie implements Serializable {
     public void setId(int id) {this.id = id;}
 
     public void setFavourite(boolean flag){ this.favourite = flag;}
+
+    public void setPoster(Bitmap poster) {
+        this.poster = poster;
+    }
 }

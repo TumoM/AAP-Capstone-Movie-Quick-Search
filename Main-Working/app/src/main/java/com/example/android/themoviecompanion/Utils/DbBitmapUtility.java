@@ -9,9 +9,13 @@ public class DbBitmapUtility {
 
     // convert from bitmap to byte array
     public static byte[] getBytes(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        return stream.toByteArray();
+        if (bitmap == null){return null;}
+        else{
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+            return stream.toByteArray();
+        }
+
     }
 
     // convert from byte array to bitmap

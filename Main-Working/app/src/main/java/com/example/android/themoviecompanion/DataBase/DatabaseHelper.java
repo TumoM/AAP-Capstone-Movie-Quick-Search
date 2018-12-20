@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.android.themoviecompanion.Utils.DbBitmapUtility;
+import com.example.android.themoviecompanion.Utils.Movie;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,14 +43,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertMovie(String note) {
+    public long insertMovie(Movie movie) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         // `id` and `timestamp` will be inserted automatically.
         // no need to add them
-        values.put(DbMovie.COLUMN_TITLE, note);
+        byte[] imgConvert = DbBitmapUtility.getBytes(movie.getPoster());
+        values.put(DbMovie.COLUMN_ID, movie.getId());
+        values.put(DbMovie.COLUMN_TITLE, movie.getTitle());
+        values.put(DbMovie.COLUMN_YEAR, movie.getYear());
+        values.put(DbMovie.COLUMN_PLOT, movie.getPlot());
+        values.put(DbMovie.COLUMN_POSTER, imgConvert);
 
         // insert row
         long id = db.insert(DbMovie.TABLE_NAME, null, values);
@@ -82,9 +90,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // close the db connection
         cursor.close();
-        cursor.close();
 
         return note;
+    }
+
+    public boolean isPresent(Movie movie){
+        List<DbMovie> list = getAllFavouriteMovies();
+        if (list.size() == 0){return true;}
+        for (DbMovie dbmovie: list) {
+            if (dbmovie.getId() == movie.getId()){return true;}
+        }
+        return false;
     }
 
     public List<DbMovie> getAllFavouriteMovies() {
@@ -142,10 +158,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(movie.getId())});
     }
 
-    public void deletedb_movie(DbMovie note) {
+    public void deleteMovie(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DbMovie.TABLE_NAME, DbMovie.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(note.getId())});
+        db.delete(DbMovie.TABLE_NAME, id + " = ?",
+                new String[]{String.valueOf(id)});
         db.close();
     }
 }

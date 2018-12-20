@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -38,6 +39,7 @@ public class ResultsActivity2 extends AppCompatActivity {
     Network network;
     static String search;
     static Context context2;
+    static TextView noResult;
 
 
     static DatabaseHelper db;
@@ -53,6 +55,7 @@ public class ResultsActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_results);
 
         context2 = this;
+        noResult = (TextView) findViewById(R.id.noResultsTextView);
         db = new DatabaseHelper(context2);
         //queue = Volley.newRequestQueue(this);
         // Instantiate the cache
@@ -111,18 +114,22 @@ public class ResultsActivity2 extends AppCompatActivity {
         protected void onPostExecute(ArrayList<Movie> movies) {
             super.onPostExecute(movies);
             movieList = movies;
+            if (movieList != null) {
 
-            for (Movie movie: movies) {
-                db.insertMovie(movie.getTitle());
+/*            for (Movie movie: movies) {
+                db.insertMovie(movie);
+            }*/
+                recyclerView.setHasFixedSize(true);
+                recyclerLayoutManager = new LinearLayoutManager(context2);
+                recyclerView.setLayoutManager(recyclerLayoutManager);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                movieRecyclerAdapapter = new MovieRecyclerViewAdapter(context2, movieList);
+                recyclerView.setAdapter(movieRecyclerAdapapter);
+                movieRecyclerAdapapter.notifyDataSetChanged();
             }
-            recyclerView.setHasFixedSize(true);
-            recyclerLayoutManager = new LinearLayoutManager(context2);
-            recyclerView.setLayoutManager(recyclerLayoutManager);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-            movieRecyclerAdapapter = new MovieRecyclerViewAdapter(context2,movieList);
-            recyclerView.setAdapter(movieRecyclerAdapapter);
-            movieRecyclerAdapapter.notifyDataSetChanged();
-
+            else{
+                noResult.setVisibility(View.VISIBLE);
+            }
 
 
         }
@@ -153,7 +160,7 @@ public class ResultsActivity2 extends AppCompatActivity {
                         movie.setTitle(movieObj.getString("title"));
                         movie.setYear("Year Released: " + movieObj.getString("release_date"));
                         //.substring(0,4));
-                        movie.setPoster(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
+                        movie.setPosterPath(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
                         movie.setPlot(movieObj.getString("overview"));
 
 
