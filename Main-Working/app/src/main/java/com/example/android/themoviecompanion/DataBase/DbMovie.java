@@ -1,5 +1,8 @@
 package com.example.android.themoviecompanion.DataBase;
 
+import com.example.android.themoviecompanion.Utils.DbBitmapUtility;
+import com.example.android.themoviecompanion.Utils.Movie;
+
 import java.io.Serializable;
 
 public class DbMovie implements Serializable {
@@ -37,6 +40,12 @@ public class DbMovie implements Serializable {
         this.year = year;
         this.plot = plot;
         this.img = img;
+    }public DbMovie(Movie movie) {
+        this.id = movie.getId();
+        this.title = movie.getTitle();
+        this.year = movie.getYear();
+        this.plot = movie.getPlot();
+        this.img = DbBitmapUtility.getBytes(movie.getPoster());
     }
 
     public int getId() {
@@ -73,11 +82,21 @@ public class DbMovie implements Serializable {
     }
 
     public void setPlot(String plot) {
-        this.year = plot;
+        this.plot = plot;
     }
 
     public void setImg(byte[] img) {
         this.img = img;
+    }
+
+    public Movie toMovie(DbMovie o){
+        Movie movie = new Movie();
+        movie.setId(o.getId());
+        movie.setTitle(o.getTitle());
+        movie.setPlot(o.getPlot());
+        movie.setPoster(DbBitmapUtility.getImage(o.getImg()));
+        movie.setYear(o.getYear());
+        return movie;
     }
 }
 

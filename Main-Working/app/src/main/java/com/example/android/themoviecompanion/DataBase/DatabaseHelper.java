@@ -96,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean isPresent(Movie movie){
         List<DbMovie> list = getAllFavouriteMovies();
-        if (list.size() == 0){return true;}
+        if (list.size() == 0){return false;}
         for (DbMovie dbmovie: list) {
             if (dbmovie.getId() == movie.getId()){return true;}
         }
@@ -119,8 +119,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 movie.setId(cursor.getInt(cursor.getColumnIndex(DbMovie.COLUMN_ID)));
                 movie.setTitle(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_TITLE)));
                 movie.setYear(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_YEAR)));
-                //movie.setPlot(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_PLOT)));
-                //movie.setImg(cursor.getBlob(cursor.getColumnIndex(DbMovie.COLUMN_POSTER)));
+                movie.setPlot(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_PLOT)));
+                movie.setImg(cursor.getBlob(cursor.getColumnIndex(DbMovie.COLUMN_POSTER)));
 
                 notes.add(movie);
             } while (cursor.moveToNext());

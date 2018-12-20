@@ -1,5 +1,7 @@
 package com.example.android.themoviecompanion.Activities;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.themoviecompanion.DataBase.DatabaseHelper;
+import com.example.android.themoviecompanion.DataBase.DbMovie;
 import com.example.android.themoviecompanion.R;
 import com.example.android.themoviecompanion.Utils.Movie;
 import com.squareup.picasso.Picasso;
@@ -39,18 +42,30 @@ public class DetailsActivity extends AppCompatActivity {
         addFave = (FloatingActionButton) findViewById(R.id.favouriteAddBT);
         deleteFave = (FloatingActionButton) findViewById(R.id.favouriteDeleteBT);
 
-        movie = (Movie) getIntent().getSerializableExtra("movie");
+        try {
+        DbMovie movieTemp = ((DbMovie) getIntent().getSerializableExtra("movie"));
+        movie = movieTemp.toMovie(movieTemp);}
+        catch (Exception e){
+            movie = ((Movie) getIntent().getSerializableExtra("movie"));
+        }
+        if (movie.getPoster() == null){
+        Picasso.get().load(movie.getPosterPath()).placeholder(android.R.drawable.ic_btn_speak_now).into(poster);}
+                else{poster.setImageBitmap(movie.getPoster());}
         title.setText(movie.getTitle());
         year.setText(movie.getYear().substring(14));
         plot.setText(movie.getPlot());
         plot.setMovementMethod(new ScrollingMovementMethod());
-        Picasso.get().load(movie.getPosterPath()).placeholder(android.R.drawable.ic_btn_speak_now)
-                .into(poster);
+        //
+        //
+
+
     }
 
     public void addClick(View view){
-        if (db.isPresent(movie)){
+        if (!db.isPresent(movie)){
             Toast.makeText(this, "Added to Favourites", Toast.LENGTH_SHORT).show();
+            Bitmap posterBit = ((BitmapDrawable)poster.getDrawable()).getBitmap();
+            movie.setPoster(posterBit);
             db.insertMovie(movie);
         }else {
             Toast.makeText(this, "Already in Favourites", Toast.LENGTH_SHORT).show();
@@ -58,7 +73,7 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     public void removeClick(View view){
-        if (!db.isPresent(movie)){
+        if (db.isPresent(movie)){
             Toast.makeText(this, "Removing", Toast.LENGTH_SHORT).show();
             db.deleteMovie(movie.getId());
         }else {
