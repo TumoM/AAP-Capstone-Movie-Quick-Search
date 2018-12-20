@@ -8,7 +8,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="62dp">
 
         <ImageView
             android:id="@+id/movieImage"
@@ -38,32 +41,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/movieTitle"
-            android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true"
-            android:text="Year"
-            />
+            android:layout_marginTop="5dp"
+            android:text="Year" />
 
         <TextView
             android:id="@+id/plotText"
             android:layout_width="199dp"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/favouriteAddBT"
+            android:layout_above="@id/favouriteDeleteBT"
             android:layout_below="@+id/movieYear"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp"
             android:layout_marginStart="6dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="14dp"
             android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="6dp"
             android:background="@android:color/darker_gray"
             android:fadeScrollbars="true"
             android:lineSpacingExtra="8sp"
             android:scrollbarAlwaysDrawVerticalTrack="true"
             android:scrollbarDefaultDelayBeforeFade="5000"
-            android:scrollbarStyle="outsideOverlay"
+            android:scrollbarStyle="outsideInset"
             android:scrollbars="vertical"
             android:text="TextView"
             android:textAlignment="center"
@@ -77,14 +81,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="140dp"
-            android:layout_marginEnd="33dp"
-            android:layout_marginBottom="18dp"
-            android:layout_toStartOf="@+id/favouriteAddBT"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:onClick="removeClick"
             app:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@android:drawable/ic_delete" />
+            app:srcCompat="@android:drawable/ic_delete"
+            tools:layout_editor_absoluteX="140dp"
+            tools:layout_editor_absoluteY="644dp" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/favouriteAddBT"
@@ -92,11 +96,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="158dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:onClick="addClick"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@android:drawable/ic_input_add"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="644dp" />
 
 
     </RelativeLayout>
