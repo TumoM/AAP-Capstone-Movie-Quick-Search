@@ -65,7 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(DbMovie.TABLE_NAME,
                 new String[]{DbMovie.COLUMN_ID, DbMovie.COLUMN_TITLE, DbMovie.COLUMN_YEAR, DbMovie.COLUMN_PLOT,
-                new String(DbMovie.COLUMN_POSTER)},
+                DbMovie.COLUMN_POSTER},
                 DbMovie.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -82,6 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // close the db connection
         cursor.close();
+        cursor.close();
 
         return note;
     }
@@ -92,8 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Select All Query
         String selectQuery = "SELECT  * FROM " + DbMovie.TABLE_NAME + " ORDER BY " +
                 DbMovie.COLUMN_TITLE + " DESC";
-
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
@@ -103,8 +103,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 movie.setId(cursor.getInt(cursor.getColumnIndex(DbMovie.COLUMN_ID)));
                 movie.setTitle(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_TITLE)));
                 movie.setYear(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_YEAR)));
-                movie.setPlot(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_PLOT)));
-                movie.setImg(cursor.getBlob(cursor.getColumnIndex(DbMovie.COLUMN_POSTER)));
+                //movie.setPlot(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_PLOT)));
+                //movie.setImg(cursor.getBlob(cursor.getColumnIndex(DbMovie.COLUMN_POSTER)));
 
                 notes.add(movie);
             } while (cursor.moveToNext());
@@ -112,6 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // close db connection
         db.close();
+        cursor.close();
 
         // return notes list
         return notes;

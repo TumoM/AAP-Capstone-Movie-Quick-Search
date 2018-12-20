@@ -93,5 +93,7 @@ public class SearchActivity extends AppCompatActivity{
     public void favouriteClick(View view){
         // TODO 1 Implement favouriteClick() method
         Toast.makeText(this, "Going to favourites", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, FavouritesActivity.class);
+        startActivity(intent);
     }
 }

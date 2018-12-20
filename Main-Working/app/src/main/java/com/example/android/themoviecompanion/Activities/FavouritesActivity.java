@@ -38,6 +38,7 @@ public class FavouritesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         favouritesRecyclerViewAdapter = new FavouritesRecyclerViewAdapter(this,movieList);
+        recyclerView.setAdapter(favouritesRecyclerViewAdapter);
 
     }
 }

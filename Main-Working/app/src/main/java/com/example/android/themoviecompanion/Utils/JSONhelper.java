@@ -49,7 +49,7 @@ public class JSONhelper{
                     movie.setTitle(movieObj.getString("title"));
                     movie.setYear("Year Released: " + movieObj.getString("release_date"));
                     movie.setId(movieObj.getInt("id"));
-                    movie.setPlot(movieObj.getString("plot"));
+                    movie.setPlot(movieObj.getString("overview"));
                     movie.setPoster(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
                     movie.setFavourite(false);
 
