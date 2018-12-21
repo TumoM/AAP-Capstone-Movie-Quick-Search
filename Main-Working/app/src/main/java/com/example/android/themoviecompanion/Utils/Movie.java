@@ -5,12 +5,14 @@ import android.graphics.Bitmap;
 import java.io.Serializable;
 
 public class Movie implements Serializable {
-    String title, year, posterPath, plot;
+    String title, year, posterPath, plot, type;
     int id;
     boolean favourite;
     Bitmap poster;
 
     public Movie (){}
+
+    public String getType(){return type;}
 
     public String getPosterPath() {
         return posterPath;
@@ -53,6 +55,8 @@ public class Movie implements Serializable {
     }
 
     public void setId(int id) {this.id = id;}
+
+    public void setType(String type){this.type = type;}
 
     public void setFavourite(boolean flag){ this.favourite = flag;}
 

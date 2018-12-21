@@ -52,7 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
         Picasso.get().load(movie.getPosterPath()).placeholder(android.R.drawable.ic_btn_speak_now).into(poster);}
                 else{poster.setImageBitmap(movie.getPoster());}
         title.setText(movie.getTitle());
-        year.setText(movie.getYear().substring(14));
+        year.setText(movie.getYear());
         plot.setText(movie.getPlot());
         plot.setMovementMethod(new ScrollingMovementMethod());
         //

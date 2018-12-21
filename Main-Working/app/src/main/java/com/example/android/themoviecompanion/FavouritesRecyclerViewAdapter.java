@@ -57,11 +57,9 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
             byte[] posterURI = movie.getImg();
             Bitmap poster = DbBitmapUtility.getImage(movie.getImg());
             holder.mTitle.setText(movie.getTitle());
-            //holder.mCatagory.setText(movie.getCategory());
             holder.mYear.setText(movie.getYear());
             holder.mPoster.setImageBitmap(poster);
-            //textView.setText(title);
-            //set values of data here
+            holder.mCatagory.setText(movie.getType());
 
         }
 

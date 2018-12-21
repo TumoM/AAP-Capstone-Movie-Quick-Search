@@ -45,6 +45,7 @@ public class FavouritesActivity extends AppCompatActivity {
         movieList = new ArrayList<>();
         db = new DatabaseHelper(this);
         if (db.getMoviesCount() > 0) {
+            noResultTextView.setVisibility(View.INVISIBLE);
             movieList.addAll((ArrayList<DbMovie>) db.getAllFavouriteMovies());
             recyclerView.setHasFixedSize(true);
             recyclerLayoutManager = new LinearLayoutManager(this);

@@ -11,7 +11,7 @@ public abstract class UrlTask extends AsyncTask<String,String,ArrayList<Movie>> 
     public ArrayList<Movie> doInBackground(String... params) {
 
         JSONhelper jsonhelper = new JSONhelper();
-        ArrayList<Movie>  data = JSONhelper.getJSON(params[0]);
+        ArrayList<Movie>  data = JSONhelper.getJSON(params[0], params[1]);
 
 
         return data;

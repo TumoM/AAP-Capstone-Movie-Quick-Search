@@ -55,12 +55,10 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
             Movie movie = movieList.get(position);
             String posterURI = movie.getPosterPath();
             holder.mTitle.setText(movie.getTitle());
-            //holder.mCatagory.setText(movie.getCategory());
             holder.mYear.setText(movie.getYear());
             Picasso.get().load(posterURI).placeholder(android.R.drawable.ic_btn_speak_now)
             .into(holder.mPoster);
-            //textView.setText(title);
-            //set values of data here
+            holder.mCatagory.setText(movie.getType());
 
         }
 

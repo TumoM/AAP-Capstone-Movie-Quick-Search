@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -20,7 +21,9 @@ public class SearchActivity extends AppCompatActivity{
     private EditText searchET;
     private Button searchBT;
     private RadioGroup typeGroup;
+    private RadioButton typeSelect;
     Boolean connected = false;
+    public static String SELECTION_TYPE;
 
 
 
@@ -35,9 +38,13 @@ public class SearchActivity extends AppCompatActivity{
         {
             if (searchET.getText().length() > 0) // checking for a valid length input
             {
-                // Launches nexr Activity (Results)
+                int selectedCategory = typeGroup.getCheckedRadioButtonId();
+                typeSelect = (RadioButton) findViewById(selectedCategory);
+                // Launches next Activity (Results)
                 Intent intent = new Intent(this, ResultsActivity2.class);
                 intent.putExtra("Search", searchET.getText().toString());
+                SELECTION_TYPE = typeSelect.getTag().toString();
+                intent.putExtra("Type", typeSelect.getTag().toString());
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show();

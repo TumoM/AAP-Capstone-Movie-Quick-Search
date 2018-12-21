@@ -35,7 +35,7 @@ public class DownloadService3 extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        Log.e("SWAGGER", "Entered DLS2");
+        Log.e("SWAGGER", "Entered DLS3");
         //String urlString = (intent.getExtras()).getString("URL");
         //Todo 1 Impliment the functionality to turn this string into the download request
         ResultsActivity2.getData();
@@ -44,7 +44,7 @@ public class DownloadService3 extends IntentService {
     public List<Movie> getMovies(String searchTerm) {
         Log.d("CHECK-IN", "Running getMovies");
         movieList.clear();
-        String url = HTTPConstants.baseURLSerach + searchTerm;
+        String url = HTTPConstants.baseURLSerachMovie + searchTerm;
         return movieList;
     }
 }

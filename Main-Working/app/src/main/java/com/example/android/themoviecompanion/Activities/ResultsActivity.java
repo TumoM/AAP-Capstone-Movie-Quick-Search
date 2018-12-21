@@ -69,7 +69,7 @@ public class ResultsActivity extends AppCompatActivity {
     public List<Movie> getMovies(String searchTerm){
         Log.d("CHECK-IN", "Running getMovies");
         movieList.clear();
-        String url = HTTPConstants.baseURLSerach + searchTerm;
+        String url = HTTPConstants.baseURLSerachMovie + searchTerm;
         Log.i("Search URL", url);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
             @Override

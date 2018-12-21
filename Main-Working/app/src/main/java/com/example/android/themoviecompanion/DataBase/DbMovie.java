@@ -13,12 +13,14 @@ public class DbMovie implements Serializable {
     public static final String COLUMN_YEAR = "year";
     public static final String COLUMN_PLOT = "plot";
     public static final String COLUMN_POSTER = "poster";
+    public static final String COLUMN_TYPE = "type";
 
     private int id;
     private  String title;
     private  String year;
     private  String plot;
     private  byte[] img;
+    private  String type;
 
 
     // Create table SQL query
@@ -28,24 +30,28 @@ public class DbMovie implements Serializable {
                     + COLUMN_TITLE + " Movie Title,"
                     + COLUMN_PLOT + " The movie plot,"
                     + COLUMN_YEAR + " Year Released,"
-                    + COLUMN_POSTER + " Bitmap storing the img"
+                    + COLUMN_POSTER + " Bitmap storing the img,"
+                    + COLUMN_TYPE + " Type of media"
                     + ")";
 
     public DbMovie() {
     }
 
-    public DbMovie(int id, String title, String year, String plot, byte[] img) {
+    public DbMovie(int id, String title, String year, String plot, byte[] img, String type) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.plot = plot;
         this.img = img;
+        this.type = type;
+
     }public DbMovie(Movie movie) {
         this.id = movie.getId();
         this.title = movie.getTitle();
         this.year = movie.getYear();
         this.plot = movie.getPlot();
         this.img = DbBitmapUtility.getBytes(movie.getPoster());
+        this.type = movie.getType();
     }
 
     public int getId() {
@@ -56,6 +62,7 @@ public class DbMovie implements Serializable {
         return title;
     }
 
+    public String getType(){return type;}
 
     public String getYear() {
         return year;
@@ -89,6 +96,8 @@ public class DbMovie implements Serializable {
         this.img = img;
     }
 
+    public void setType(String type){ this.type = type;}
+
     public Movie toMovie(DbMovie o){
         Movie movie = new Movie();
         movie.setId(o.getId());
@@ -96,6 +105,7 @@ public class DbMovie implements Serializable {
         movie.setPlot(o.getPlot());
         movie.setPoster(DbBitmapUtility.getImage(o.getImg()));
         movie.setYear(o.getYear());
+        movie.setType(o.getType());
         return movie;
     }
 }

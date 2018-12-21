@@ -56,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(DbMovie.COLUMN_YEAR, movie.getYear());
         values.put(DbMovie.COLUMN_PLOT, movie.getPlot());
         values.put(DbMovie.COLUMN_POSTER, imgConvert);
+        values.put(DbMovie.COLUMN_TYPE, movie.getType());
 
         // insert row
         long id = db.insert(DbMovie.TABLE_NAME, null, values);
@@ -86,7 +87,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_TITLE)),
                 cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_YEAR)),
                 cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_PLOT)),
-                cursor.getBlob(cursor.getColumnIndex(DbMovie.COLUMN_POSTER)));
+                cursor.getBlob(cursor.getColumnIndex(DbMovie.COLUMN_POSTER)),
+                cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_TYPE)));
+
 
         // close the db connection
         cursor.close();
@@ -121,6 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 movie.setYear(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_YEAR)));
                 movie.setPlot(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_PLOT)));
                 movie.setImg(cursor.getBlob(cursor.getColumnIndex(DbMovie.COLUMN_POSTER)));
+                movie.setType(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_TYPE)));
 
                 notes.add(movie);
             } while (cursor.moveToNext());
@@ -164,5 +168,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(id)});
         db.close();
     }
+
 }
 

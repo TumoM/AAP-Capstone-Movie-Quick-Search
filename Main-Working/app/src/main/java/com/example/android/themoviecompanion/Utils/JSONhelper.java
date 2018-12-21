@@ -21,9 +21,15 @@ public class JSONhelper{
     static ArrayList<Movie> data;
 
 
-    public static ArrayList<Movie> getJSON(String search){
+    public static ArrayList<Movie> getJSON(String search, String type){
         try{
-            URL url1 = new URL(HTTPConstants.baseURLSerach + search);
+            String baseURL;
+            if (type.equals("Movie")){baseURL = HTTPConstants.baseURLSerachMovie;}
+            else{
+                baseURL = HTTPConstants.baseURLSerachTV;}
+            URL url1 = new URL(baseURL + search);
+            Log.d("NETWORK", "Search URL: "+url1);
+
 
             connection = (HttpURLConnection) url1.openConnection();
             connection.connect();
@@ -48,12 +54,19 @@ public class JSONhelper{
 
                         // Creates a new movie item, and then rips the appropriate JSON Data
                         Movie movie = new Movie();
-                        movie.setTitle(movieObj.getString("title"));
-                        movie.setYear("Year Released: " + movieObj.getString("release_date"));
+                        if (type.equals("Movie")) {
+                            movie.setTitle(movieObj.getString("title"));
+                            movie.setYear(movieObj.getString("release_date"));
+
+                        }else {
+                            movie.setTitle(movieObj.getString("name"));
+                            movie.setYear(movieObj.getString("first_air_date"));
+                        }
                         movie.setId(movieObj.getInt("id"));
                         movie.setPlot(movieObj.getString("overview"));
                         movie.setPosterPath(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
                         movie.setFavourite(false);
+                        movie.setType(type);
 
                         Log.d("DEBUG", "Movie Added: " + movie.getTitle());
                         data.add(movie);

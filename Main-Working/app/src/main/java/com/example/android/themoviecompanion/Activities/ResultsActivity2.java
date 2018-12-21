@@ -40,6 +40,7 @@ public class ResultsActivity2 extends AppCompatActivity {
     static String search;
     static Context context2;
     static TextView noResult;
+    private static String mediaType;
 
 
     static DatabaseHelper db;
@@ -56,6 +57,7 @@ public class ResultsActivity2 extends AppCompatActivity {
 
         context2 = this;
         noResult = (TextView) findViewById(R.id.statusResultsTextView);
+        mediaType = getIntent().getStringExtra("Type");
         db = new DatabaseHelper(context2);
         //queue = Volley.newRequestQueue(this);
         // Instantiate the cache
@@ -95,7 +97,8 @@ public class ResultsActivity2 extends AppCompatActivity {
     }
 
     public static void getData(){
-        new Viewdata().execute(search);
+        String[] inputs = {search, mediaType};
+        new Viewdata().execute(inputs);
     }
 
     public static void setMovieList(ArrayList<Movie> movies){
