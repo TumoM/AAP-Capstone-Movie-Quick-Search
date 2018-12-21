@@ -31,7 +31,12 @@ public class FavouritesActivity extends AppCompatActivity {
         super.onPostResume();
         if (movieList != null){movieList.clear();}
         movieList.addAll((ArrayList<DbMovie>) db.getAllFavouriteMovies());
-        favouritesRecyclerViewAdapter.notifyDataSetChanged();
+        if (favouritesRecyclerViewAdapter != null) {
+            favouritesRecyclerViewAdapter.notifyDataSetChanged();
+        }
+        if (db.getMoviesCount() == 0) {
+            noResultTextView.setText("No results found!!!");
+        }
     }
 
     @Override
@@ -54,6 +59,7 @@ public class FavouritesActivity extends AppCompatActivity {
             favouritesRecyclerViewAdapter = new FavouritesRecyclerViewAdapter(this, movieList);
             recyclerView.setAdapter(favouritesRecyclerViewAdapter);
         }
-        else{ noResultTextView.setVisibility(View.VISIBLE);}
+        else{ noResultTextView.setVisibility(View.VISIBLE);
+            noResultTextView.setText("No results found!!!");}
     }
 }

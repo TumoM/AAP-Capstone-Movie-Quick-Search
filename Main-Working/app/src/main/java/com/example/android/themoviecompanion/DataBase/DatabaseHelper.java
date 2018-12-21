@@ -74,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(DbMovie.TABLE_NAME,
                 new String[]{DbMovie.COLUMN_ID, DbMovie.COLUMN_TITLE, DbMovie.COLUMN_YEAR, DbMovie.COLUMN_PLOT,
-                DbMovie.COLUMN_POSTER},
+                DbMovie.COLUMN_POSTER, DbMovie.COLUMN_TYPE},
                 DbMovie.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 

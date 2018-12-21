@@ -93,7 +93,8 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
 
                     Intent intent = new Intent(v.getContext(), DetailsActivity.class);
 
-                    intent.putExtra("movie", movie);
+                    intent.putExtra("movie", movie.getId());
+                    intent.setFlags(movie.getId());
                     context.startActivity(intent);
 
                 }

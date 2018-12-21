@@ -43,8 +43,11 @@ public class DetailsActivity extends AppCompatActivity {
         deleteFave = (FloatingActionButton) findViewById(R.id.favouriteDeleteBT);
 
         try {
-        DbMovie movieTemp = ((DbMovie) getIntent().getSerializableExtra("movie"));
-        movie = movieTemp.toMovie(movieTemp);}
+        //DbMovie movieTemp = ((DbMovie) getIntent().getSerializableExtra("movie"));
+            int iDtest = getIntent().getIntExtra("movie",0);
+        DbMovie movieTemp = db.getMovie(iDtest);
+        movie = movieTemp.toMovie(movieTemp);
+        }
         catch (Exception e){
             movie = ((Movie) getIntent().getSerializableExtra("movie"));
         }
