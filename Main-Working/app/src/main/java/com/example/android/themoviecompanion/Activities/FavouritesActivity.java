@@ -27,12 +27,20 @@ public class FavouritesActivity extends AppCompatActivity {
     private TextView noResultTextView;
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (movieList != null){movieList.clear();}
+        movieList.addAll((ArrayList<DbMovie>) db.getAllFavouriteMovies());
+        favouritesRecyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
         recyclerView = (RecyclerView) findViewById(R.id.displayRV);
-        noResultTextView = (TextView) findViewById(R.id.noResultsTextView);
+        noResultTextView = (TextView) findViewById(R.id.statusResultsTextView);
 
         movieList = new ArrayList<>();
         db = new DatabaseHelper(this);

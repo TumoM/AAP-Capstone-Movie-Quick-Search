@@ -7,15 +7,15 @@
     tools:context=".Activities.ResultsActivity">
 
     <TextView
-        android:id="@+id/noResultsTextView"
+        android:id="@+id/statusResultsTextView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="200dp"
-        android:text="No results found!!!"
+        android:text="Searching..."
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold|italic"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

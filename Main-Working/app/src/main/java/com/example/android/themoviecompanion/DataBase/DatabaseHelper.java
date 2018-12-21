@@ -160,7 +160,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteMovie(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DbMovie.TABLE_NAME, id + " = ?",
+        db.delete(DbMovie.TABLE_NAME, DbMovie.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(id)});
         db.close();
     }

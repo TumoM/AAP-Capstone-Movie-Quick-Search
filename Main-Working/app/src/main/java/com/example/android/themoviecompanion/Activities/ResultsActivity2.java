@@ -55,7 +55,7 @@ public class ResultsActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_results);
 
         context2 = this;
-        noResult = (TextView) findViewById(R.id.noResultsTextView);
+        noResult = (TextView) findViewById(R.id.statusResultsTextView);
         db = new DatabaseHelper(context2);
         //queue = Volley.newRequestQueue(this);
         // Instantiate the cache
@@ -114,11 +114,9 @@ public class ResultsActivity2 extends AppCompatActivity {
         protected void onPostExecute(ArrayList<Movie> movies) {
             super.onPostExecute(movies);
             movieList = movies;
-            if (movieList != null) {
+            if (movieList != null && movieList.size()>0) {
 
-/*            for (Movie movie: movies) {
-                db.insertMovie(movie);
-            }*/
+                noResult.setVisibility(View.INVISIBLE);
                 recyclerView.setHasFixedSize(true);
                 recyclerLayoutManager = new LinearLayoutManager(context2);
                 recyclerView.setLayoutManager(recyclerLayoutManager);
@@ -128,6 +126,7 @@ public class ResultsActivity2 extends AppCompatActivity {
                 movieRecyclerAdapapter.notifyDataSetChanged();
             }
             else{
+                noResult.setText("No results found!!!");
                 noResult.setVisibility(View.VISIBLE);
             }
 

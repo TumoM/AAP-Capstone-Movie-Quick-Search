@@ -37,27 +37,29 @@ public class JSONhelper{
                 buffer.append(line);
                 String result = buffer.toString();
                 JSONObject tempObj = new JSONObject(result);
-                JSONArray jsonArray = (JSONArray) tempObj.get("results");
-                data = new ArrayList<>();
+                //JSONArray jsonArray = (JSONArray) tempObj.get("results");
+                if ((int)tempObj.get("total_results") > 0) {
+                    JSONArray jsonArray = (JSONArray) tempObj.get("results");
+                    data = new ArrayList<>();
 
-                for (int i =0; i<jsonArray.length();i++){
+                    for (int i = 0; i < jsonArray.length(); i++) {
 
-                    JSONObject movieObj = jsonArray.getJSONObject(i);
+                        JSONObject movieObj = jsonArray.getJSONObject(i);
 
-                    // Creates a new movie item, and then rips the appropriate JSON Data
-                    Movie movie = new Movie();
-                    movie.setTitle(movieObj.getString("title"));
-                    movie.setYear("Year Released: " + movieObj.getString("release_date"));
-                    movie.setId(movieObj.getInt("id"));
-                    movie.setPlot(movieObj.getString("overview"));
-                    movie.setPosterPath(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
-                    movie.setFavourite(false);
+                        // Creates a new movie item, and then rips the appropriate JSON Data
+                        Movie movie = new Movie();
+                        movie.setTitle(movieObj.getString("title"));
+                        movie.setYear("Year Released: " + movieObj.getString("release_date"));
+                        movie.setId(movieObj.getInt("id"));
+                        movie.setPlot(movieObj.getString("overview"));
+                        movie.setPosterPath(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
+                        movie.setFavourite(false);
 
-                    Log.d("DEBUG", "Movie Added: "+movie.getTitle());
-                    data.add(movie);
+                        Log.d("DEBUG", "Movie Added: " + movie.getTitle());
+                        data.add(movie);
 
+                    }
                 }
-
 
             }
 
