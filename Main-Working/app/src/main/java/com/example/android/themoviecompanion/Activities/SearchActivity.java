@@ -14,7 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.android.themoviecompanion.MyBroadcastReceiver;
+import com.example.android.themoviecompanion.Misc.MyBroadcastReceiver;
 import com.example.android.themoviecompanion.R;
 
 public class SearchActivity extends AppCompatActivity{
@@ -41,7 +41,7 @@ public class SearchActivity extends AppCompatActivity{
                 int selectedCategory = typeGroup.getCheckedRadioButtonId();
                 typeSelect = (RadioButton) findViewById(selectedCategory);
                 // Launches next Activity (Results)
-                Intent intent = new Intent(this, ResultsActivity2.class);
+                Intent intent = new Intent(this, ResultsActivity.class);
                 intent.putExtra("Search", searchET.getText().toString());
                 SELECTION_TYPE = typeSelect.getTag().toString();
                 intent.putExtra("Type", typeSelect.getTag().toString());

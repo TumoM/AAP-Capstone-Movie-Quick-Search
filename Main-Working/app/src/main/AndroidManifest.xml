@@ -25,14 +25,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.ResultsActivity" />
-        <activity android:name=".Activities.ResultsActivity2" />
         <activity android:name=".Activities.DetailsActivity" />
 
         <service
-            android:name=".Utils.DownloadService3"
+            android:name=".Utils.DownloadService"
             android:exported="false" />
         <service
-            android:name=".Utils.DownloadService3"
+            android:name=".Utils.DownloadService"
             android:exported="false" />
 
         <activity android:name=".Activities.FavouritesActivity"></activity>

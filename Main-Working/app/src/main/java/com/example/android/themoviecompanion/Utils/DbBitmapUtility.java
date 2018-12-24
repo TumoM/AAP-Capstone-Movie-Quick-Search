@@ -7,7 +7,7 @@ import java.io.ByteArrayOutputStream;
 
 public class DbBitmapUtility {
 
-    // convert from bitmap to byte array
+    // convert from bitmap to byte array if not null
     public static byte[] getBytes(Bitmap bitmap) {
         if (bitmap == null){return null;}
         else{
@@ -18,7 +18,7 @@ public class DbBitmapUtility {
 
     }
 
-    // convert from byte array to bitmap
+    // convert from byte array to bitmap if not null
     public static Bitmap getImage(byte[] image) {
         if (image == null){return null;}
         else{return BitmapFactory.decodeByteArray(image, 0, image.length);}

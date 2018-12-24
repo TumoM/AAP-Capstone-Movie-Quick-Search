@@ -1,28 +1,13 @@
-package com.example.android.themoviecompanion;
+package com.example.android.themoviecompanion.Misc;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import static android.content.ContentValues.TAG;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
 

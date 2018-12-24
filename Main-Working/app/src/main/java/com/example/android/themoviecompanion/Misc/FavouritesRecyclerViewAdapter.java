@@ -1,4 +1,4 @@
-package com.example.android.themoviecompanion;
+package com.example.android.themoviecompanion.Misc;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,13 +13,13 @@ import android.widget.TextView;
 
 import com.example.android.themoviecompanion.Activities.DetailsActivity;
 import com.example.android.themoviecompanion.DataBase.DbMovie;
+import com.example.android.themoviecompanion.R;
 import com.example.android.themoviecompanion.Utils.DbBitmapUtility;
 
 import java.util.List;
 
 public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<FavouritesRecyclerViewAdapter.ViewHolder> {
     private List<DbMovie> movieList;
-    private RecyclerViewClickListener mListener;
     private Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -101,9 +101,10 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
             });
 
         }
+
         @Override
-        public void onClick(View view) {
-            mListener.onClick(view, getAdapterPosition());
+        public void onClick(View v) {
+
         }
     }
 }

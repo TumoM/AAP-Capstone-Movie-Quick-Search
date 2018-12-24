@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import java.util.ArrayList;
 
-
+// The AsyncTask that handles the background download task.
 public abstract class UrlTask extends AsyncTask<String,String,ArrayList<Movie>> {
 
     @Override

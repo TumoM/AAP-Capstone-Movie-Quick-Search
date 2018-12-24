@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.android.themoviecompanion.DataBase.DatabaseHelper;
 import com.example.android.themoviecompanion.DataBase.DbMovie;
-import com.example.android.themoviecompanion.FavouritesRecyclerViewAdapter;
+import com.example.android.themoviecompanion.Misc.FavouritesRecyclerViewAdapter;
 import com.example.android.themoviecompanion.R;
 
 import java.util.ArrayList;
