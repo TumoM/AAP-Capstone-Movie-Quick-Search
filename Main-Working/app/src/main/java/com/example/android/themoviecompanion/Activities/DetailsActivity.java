@@ -56,7 +56,7 @@ public class DetailsActivity extends AppCompatActivity {
                 else{poster.setImageBitmap(movie.getPoster());}
         title.setText(movie.getTitle());
         year.setText(movie.getYear());
-        plot.setText(movie.getPlot());
+        plot.setText("Plot:" + movie.getPlot());
         plot.setMovementMethod(new ScrollingMovementMethod());
         //
         //
