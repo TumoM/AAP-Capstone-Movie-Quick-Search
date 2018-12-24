@@ -35,15 +35,15 @@ public class DetailsActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
 
-        title = (TextView) findViewById(R.id.movieTitle);
-        year = (TextView) findViewById(R.id.movieYear);
-        plot = (TextView) findViewById(R.id.plotText);
-        poster = (ImageView) findViewById(R.id.movieImage);
-        addFave = (FloatingActionButton) findViewById(R.id.favouriteAddBT);
-        deleteFave = (FloatingActionButton) findViewById(R.id.favouriteDeleteBT);
+        title = findViewById(R.id.movieTitle);
+        year = findViewById(R.id.movieYear);
+        plot = findViewById(R.id.plotText);
+        poster = findViewById(R.id.movieImage);
+        addFave = findViewById(R.id.favouriteAddBT);
+        deleteFave = findViewById(R.id.favouriteDeleteBT);
 
+        // A try block to distinguish between a Movie object and DbMovie object
         try {
-        //DbMovie movieTemp = ((DbMovie) getIntent().getSerializableExtra("movie"));
             int iDtest = getIntent().getIntExtra("movie",0);
         DbMovie movieTemp = db.getMovie(iDtest);
         movie = movieTemp.toMovie(movieTemp);
@@ -56,11 +56,9 @@ public class DetailsActivity extends AppCompatActivity {
                 else{poster.setImageBitmap(movie.getPoster());}
         title.setText(movie.getTitle());
         year.setText(movie.getYear());
-        plot.setText("Plot:" + movie.getPlot());
+        String plotText = "Plot: " + movie.getPlot();
+        plot.setText(plotText);
         plot.setMovementMethod(new ScrollingMovementMethod());
-        //
-        //
-
 
     }
 

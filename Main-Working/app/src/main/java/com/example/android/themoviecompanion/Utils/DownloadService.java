@@ -9,9 +9,8 @@ import com.example.android.themoviecompanion.Activities.ResultsActivity;
 public class DownloadService extends IntentService {
 
     public DownloadService(){
-        super(new String("test"));
+        super(null);
     }
-
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *

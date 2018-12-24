@@ -9,14 +9,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class JSONhelper{
 
-    static HttpURLConnection connection;
-    static ArrayList<Movie> data;
+    private static HttpURLConnection connection;
+    private static ArrayList<Movie> data;
 
 
     public static ArrayList<Movie> getJSON(String search, String type){
@@ -38,7 +37,7 @@ public class JSONhelper{
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             while ((line=reader.readLine())!=null){
                 buffer.append(line);
                 String result = buffer.toString();
@@ -49,29 +48,25 @@ public class JSONhelper{
                     // Creates an array holding all the results found.
                     JSONArray jsonArray = (JSONArray) tempObj.get("results");
                     data = new ArrayList<>();
-                    data.add(parseJSONArray(jsonArray, type));
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        data.add(parseJSONArray(jsonArray, type, i));
+                    }
                     }
                 }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         return data;
     }
 
     /** Takes in a JSONArray and parses it to assign the correct metadata to a new movie object, returning it.
-     * @param jsonArray
-     * @param type
-     * @return
-     * @throws JSONException
+     * @param jsonArray The Array containing the media queries from the API
+     * @param type Movie or TV Show
+     * @return A movie object
      */
-    private static Movie parseJSONArray(JSONArray jsonArray, String type) throws JSONException {
+    private static Movie parseJSONArray(JSONArray jsonArray, String type, int i) throws JSONException {
         Movie movie = new Movie();
         // Parses each index in the array to store the relevant data.
-        for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject movieObj = jsonArray.getJSONObject(i);
             // Creates a new movie item, and then rips the appropriate JSON Data
 
@@ -89,6 +84,6 @@ public class JSONhelper{
             movie.setFavourite(false);
             movie.setType(type);
 
-        }return movie;
+        return movie;
     }
 }
