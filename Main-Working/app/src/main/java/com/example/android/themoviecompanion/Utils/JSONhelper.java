@@ -83,7 +83,6 @@ public class JSONhelper{
             movie.setId(movieObj.getInt("id"));
             movie.setPlot(movieObj.getString("overview"));
             movie.setPosterPath(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
-            movie.setFavourite(false);
             movie.setType(type);
 
         return movie;

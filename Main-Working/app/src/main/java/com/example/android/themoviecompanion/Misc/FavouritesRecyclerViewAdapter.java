@@ -54,8 +54,8 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
         if (holder instanceof RecyclerView.ViewHolder) {
             RecyclerView.ViewHolder rowHolder = (RecyclerView.ViewHolder) holder;
             DbMovie movie = movieList.get(position);
-            byte[] posterURI = movie.getImg();
-            Bitmap poster = DbBitmapUtility.getImage(movie.getImg());
+            byte[] posterURI = movie.getPoster();
+            Bitmap poster = DbBitmapUtility.getImage(movie.getPoster());
             holder.mTitle.setText(movie.getTitle());
             holder.mYear.setText(movie.getYear());
             holder.mPoster.setImageBitmap(poster);

@@ -7,7 +7,6 @@ import java.io.Serializable;
 public class Movie implements Serializable {
     String title, year, posterPath, plot, type;
     int id;
-    boolean favourite;
     Bitmap poster;
 
     public Movie (){}
@@ -32,8 +31,6 @@ public class Movie implements Serializable {
 
     public String getPlot(){ return plot;}
 
-    public boolean getFavourite() {return favourite;}
-
     public Bitmap getPoster() {
         return poster;
     }
@@ -57,8 +54,6 @@ public class Movie implements Serializable {
     public void setId(int id) {this.id = id;}
 
     public void setType(String type){this.type = type;}
-
-    public void setFavourite(boolean flag){ this.favourite = flag;}
 
     public void setPoster(Bitmap poster) {
         this.poster = poster;

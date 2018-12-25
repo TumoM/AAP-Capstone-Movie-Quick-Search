@@ -84,8 +84,6 @@ public class ResultsActivity extends AppCompatActivity {
 
 
         search = getIntent().getStringExtra("Search");
-        // movieList = getMovies(search);
-        // movieList = JSONhelper.getJSON(search)
         movieRecyclerAdapapter.notifyDataSetChanged();
 
         Intent mServiceIntent = new Intent(this, DownloadService.class);
@@ -129,7 +127,7 @@ public class ResultsActivity extends AppCompatActivity {
                 movieRecyclerAdapapter.notifyDataSetChanged();
             }
             else{
-                noResult.setText("No results found!!!");
+                noResult.setText("No results found for: \n" + search + "!!!");
                 noResult.setVisibility(View.VISIBLE);
             }
 
@@ -138,69 +136,6 @@ public class ResultsActivity extends AppCompatActivity {
 
     }
 
-
-
-/*
-
-    public List<Movie> getMovies(String searchTerm) {
-        movieList.clear();
-        String url = "https://api.themoviedb.org/3/search/movie?api_key=eeab5da6854350c8bf390f554ae7f997&query="+searchTerm;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                url, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                try{
-                    JSONArray moviesArray = response.getJSONArray("results");
-
-                    for (int i = 0; i < moviesArray.length(); i++) {
-
-                        JSONObject movieObj = moviesArray.getJSONObject(i);
-
-                        // Creates a new movie item, and then rips the appropriate JSON Data
-                        Movie movie = new Movie();
-                        movie.setTitle(movieObj.getString("title"));
-                        movie.setYear("Year Released: " + movieObj.getString("release_date"));
-                        //.substring(0,4));
-                        movie.setPosterPath(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));
-                        movie.setPlot(movieObj.getString("overview"));
-
-
-                        Log.d("Movies: ", movie.getTitle());
-                        Log.d("Poster URL", movie.getPosterPath());
-                        movieList.add(movie);
-
-
-                    }
-                    */
-/**
-                     * Very important!! Otherwise, we wont see anything being displayed.
-                     *//*
-
-                    movieRecyclerAdapapter.notifyDataSetChanged();//Important!!
-
-
-                }catch (JSONException e) {
-                    e.printStackTrace();
-                }catch (Exception p) {
-                    p.printStackTrace();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        mRequestQueue.add(jsonObjectRequest);
-
-        return movieList;
-
-    }
-*/
 
     @Override
     public View onCreateView(String name, Context context, AttributeSet attrs) {

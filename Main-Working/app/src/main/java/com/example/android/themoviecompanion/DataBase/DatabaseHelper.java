@@ -12,10 +12,12 @@ import com.example.android.themoviecompanion.Utils.Movie;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.android.themoviecompanion.DataBase.DbMovie.TABLE_NAME;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
 
     // Database Name
     private static final String DATABASE_NAME = "movies";
@@ -37,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + DbMovie.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 
         // Create tables again
         onCreate(db);
@@ -59,7 +61,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(DbMovie.COLUMN_TYPE, movie.getType());
 
         // insert row
-        long id = db.insert(DbMovie.TABLE_NAME, null, values);
+        long id = 0;
+        if (values != null) {
+            id = db.insert(TABLE_NAME, null, values);
+        }
 
         // close db connection
         db.close();
@@ -72,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(DbMovie.TABLE_NAME,
+        Cursor cursor = db.query(TABLE_NAME,
                 new String[]{DbMovie.COLUMN_ID, DbMovie.COLUMN_TITLE, DbMovie.COLUMN_YEAR, DbMovie.COLUMN_PLOT,
                 DbMovie.COLUMN_POSTER, DbMovie.COLUMN_TYPE},
                 DbMovie.COLUMN_ID + "=?",
@@ -110,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<DbMovie> notes = new ArrayList<>();
 
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + DbMovie.TABLE_NAME + " ORDER BY " +
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " ORDER BY " +
                 DbMovie.COLUMN_TITLE + " DESC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -123,7 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 movie.setTitle(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_TITLE)));
                 movie.setYear(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_YEAR)));
                 movie.setPlot(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_PLOT)));
-                movie.setImg(cursor.getBlob(cursor.getColumnIndex(DbMovie.COLUMN_POSTER)));
+                movie.setPoster(cursor.getBlob(cursor.getColumnIndex(DbMovie.COLUMN_POSTER)));
                 movie.setType(cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_TYPE)));
 
                 notes.add(movie);
@@ -139,7 +144,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public int getMoviesCount() {
-        String countQuery = "SELECT  * FROM " + DbMovie.TABLE_NAME;
+        String countQuery = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -158,14 +163,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(DbMovie.COLUMN_TITLE, movie.getTitle());
 
         // updating row
-        return db.update(DbMovie.TABLE_NAME, values, DbMovie.COLUMN_ID + " = ?",
+        return db.update(TABLE_NAME, values, DbMovie.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(movie.getId())});
     }
 
     public void deleteMovie(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DbMovie.TABLE_NAME, DbMovie.COLUMN_ID + " = ?",
+        db.delete(TABLE_NAME, DbMovie.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    public void clearDb(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_NAME);
         db.close();
     }
 
