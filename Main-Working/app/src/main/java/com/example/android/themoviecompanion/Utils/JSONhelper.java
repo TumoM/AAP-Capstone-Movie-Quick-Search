@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class JSONhelper{
 
-    private static HttpURLConnection connection;
     private static ArrayList<Movie> data;
 
 
@@ -31,7 +30,7 @@ public class JSONhelper{
             }
 
             URL url1 = new URL(baseURL + search);
-            connection = (HttpURLConnection) url1.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url1.openConnection();
             connection.connect();
             InputStream inputStream= connection.getInputStream();
 
@@ -48,6 +47,8 @@ public class JSONhelper{
                     // Creates an array holding all the results found.
                     JSONArray jsonArray = (JSONArray) tempObj.get("results");
                     data = new ArrayList<>();
+
+                    //
                     for (int i = 0; i < jsonArray.length(); i++) {
                         data.add(parseJSONArray(jsonArray, type, i));
                     }
@@ -65,19 +66,20 @@ public class JSONhelper{
      * @return A movie object
      */
     private static Movie parseJSONArray(JSONArray jsonArray, String type, int i) throws JSONException {
+        // Creates a new movie item, and then rips the appropriate JSON Data
         Movie movie = new Movie();
         // Parses each index in the array to store the relevant data.
             JSONObject movieObj = jsonArray.getJSONObject(i);
-            // Creates a new movie item, and then rips the appropriate JSON Data
 
-            if (type.equals("Movie")) {
+            if (type.equals("Movie")) { // Type == Movie
                 movie.setTitle(movieObj.getString("title"));
                 movie.setYear(movieObj.getString("release_date"));
 
-            } else {
+            } else {  // Type == TV Show
                 movie.setTitle(movieObj.getString("name"));
                 movie.setYear(movieObj.getString("first_air_date"));
             }
+            // These are the same for both Movies and TV Shows
             movie.setId(movieObj.getInt("id"));
             movie.setPlot(movieObj.getString("overview"));
             movie.setPosterPath(HTTPConstants.baseImageURL + movieObj.getString("poster_path"));

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,13 +25,6 @@ public class SearchActivity extends AppCompatActivity{
     public static String SELECTION_TYPE;
 
 
-
-    public void setConnected(Boolean connected) {
-        this.connected = connected;
-    }
-
-
-
     public void onSearchClick(View view) {
         if (connected)  // connected to the internet
         {
@@ -46,12 +38,12 @@ public class SearchActivity extends AppCompatActivity{
                 SELECTION_TYPE = typeSelect.getTag().toString();
                 intent.putExtra("Type", typeSelect.getTag().toString());
                 startActivity(intent);
-            } else {
+            } else { // empty search box
                 Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show();
                 searchET.setText("");
             }
         }
-        else{
+        else{ // no network connection.
             Toast.makeText(this, "Please try again with network connectivity", Toast.LENGTH_SHORT).show();
         }
     }
@@ -61,14 +53,13 @@ public class SearchActivity extends AppCompatActivity{
         public void onReceive(Context context, Intent intent) {
 
             Bundle b = intent.getExtras();
-            connected = b.getBoolean("connected");
-            Log.i("TUMO LOG: ", "" + connected);
+            connected = b != null && b.getBoolean("connected");
         }
     };
 
 
     // Broadcast Receiver to checks the wifi state on a status change.
-    MyBroadcastReceiver networkReciever = new MyBroadcastReceiver();
+    MyBroadcastReceiver networkReceiver = new MyBroadcastReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +70,10 @@ public class SearchActivity extends AppCompatActivity{
         searchBT = (Button) findViewById(R.id.searchButton);
         searchET = (EditText) findViewById(R.id.searchEditText);
         typeGroup = (RadioGroup) findViewById(R.id.typeRadioGroup);
+
         // Declares and intent filter for wifi and airplane mode changes.
         IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
-        this.registerReceiver(networkReciever, filter);
+        this.registerReceiver(networkReceiver, filter);
         registerReceiver(connectionBroadcastReceiver, new IntentFilter("connectionStatus"));
     }
 
@@ -89,16 +81,11 @@ public class SearchActivity extends AppCompatActivity{
     @Override
     public void onDestroy(){
         super.onDestroy();
-        this.unregisterReceiver(networkReciever);
+        this.unregisterReceiver(networkReceiver);
     }
-
-    //
-    // Listerners
-    //
 
     // Handles clicks to go to Favourites Activity
     public void favouriteClick(View view){
-        // TODO 1 Implement favouriteClick() method
         Intent intent = new Intent(this, FavouritesActivity.class);
         startActivity(intent);
     }

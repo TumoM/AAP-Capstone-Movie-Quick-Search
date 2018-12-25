@@ -21,6 +21,7 @@ public class DownloadService extends IntentService {
     }
 
 
+    // handles the service calls, in tern calling the AsyncTask method to download json in the background.
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         ResultsActivity.getData();
