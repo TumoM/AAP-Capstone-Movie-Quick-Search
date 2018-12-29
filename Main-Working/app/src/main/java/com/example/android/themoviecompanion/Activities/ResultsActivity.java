@@ -99,9 +99,8 @@ public class ResultsActivity extends AppCompatActivity {
         new Viewdata().execute(inputs);
     }
 
-    public static void setMovieList(ArrayList<Movie> movies){
+    static ArrayList<Movie> movieReturnList; // For testing. JSONTest.java
 
-    }
     public static class Viewdata extends UrlTask{
 
 
@@ -114,7 +113,7 @@ public class ResultsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<Movie> movies) {
             super.onPostExecute(movies);
-            movieList = movies;
+            movieList = movies; movieReturnList = movies;
             if (movieList != null && movieList.size()>0) {
 
                 noResult.setVisibility(View.INVISIBLE);

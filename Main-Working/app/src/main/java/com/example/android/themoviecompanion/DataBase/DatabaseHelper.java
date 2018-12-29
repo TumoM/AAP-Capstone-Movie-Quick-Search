@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertMovie(Movie movie) {
+    public void insertMovie(Movie movie) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -70,7 +70,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         // return newly inserted row id
-        return id;
     }
 
     public DbMovie getMovie(long id) {
@@ -156,17 +155,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public int updateMovie(DbMovie movie) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(DbMovie.COLUMN_TITLE, movie.getTitle());
-
-        // updating row
-        return db.update(TABLE_NAME, values, DbMovie.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(movie.getId())});
-    }
-
     public void deleteMovie(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, DbMovie.COLUMN_ID + " = ?",
@@ -176,8 +164,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void clearDb(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME);
-        db.close();
+        if (db != null) {
+            db.execSQL("DELETE FROM " + TABLE_NAME);
+            db.close();
+        }
+
     }
 
 }

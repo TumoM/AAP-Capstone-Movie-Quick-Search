@@ -31,6 +31,7 @@ public class DatabasehelperTest {
     public void setUp(){
         context = InstrumentationRegistry.getTargetContext();
         dbTest  = new DatabaseHelper(context);
+        dbTest.clearDb();
         movie = new Movie();
         movie.setId(999);
         movie.setTitle("Batman Test Case");

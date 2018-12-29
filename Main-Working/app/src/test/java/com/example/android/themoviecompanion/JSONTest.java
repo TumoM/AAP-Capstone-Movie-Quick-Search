@@ -2,48 +2,60 @@ package com.example.android.themoviecompanion;
 
 import android.content.Context;
 
-import com.example.android.themoviecompanion.DataBase.DatabaseHelper;
+import com.example.android.themoviecompanion.Activities.ResultsActivity;
+import com.example.android.themoviecompanion.Utils.JSONhelper;
 import com.example.android.themoviecompanion.Utils.Movie;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
+import java.util.ArrayList;
+
+import static com.example.android.themoviecompanion.Utils.JSONhelper.getJSON;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-
+@RunWith(RobolectricTestRunner.class)
+//@Config(manifest=Config.NONE)
 public class JSONTest {
 
-    DatabaseHelper dbTest;
-    Movie movie;
+    ArrayList<Movie> movieList;
     Context context;
 
     @Before
     public void setUp(){
         context = RuntimeEnvironment.application;
-        dbTest  = new DatabaseHelper(context);
-        movie = new Movie();
-        movie.setId(9999);
-        movie.setTitle("Batman Test Case");
-        movie.setYear("3018-12-1");
-        movie.setPlot("This is a test plot for test purposes");
-        movie.setType("Movie");
-        movie.setPosterPath("/adw6Lq9FiC9zjYEpOqfq03ituwp.jpg");
-        movie.setPoster(null);
-
+        movieList = new ArrayList<>();
+        JSONhelper jsonHelper = new JSONhelper();
+        //String search = "Batman";
+        //movieList.addAll(jsonHelper.getJSON(search, "Movie"));
     }
 
     @Test
     public void database_helper_init() {
-        assertNotNull(dbTest);
-        dbTest.insertMovie(movie);
-        // assertEquals(1, dbTest.getMoviesCount());
+        assertNotNull(movieList);
+        assertEquals(0,movieList.size());
+        String search = "Batman";
+        String[] inputs = {search, "Movie"};
+        new ResultsActivity.Viewdata().execute(inputs);
+        JSONhelper jsonHelper = new JSONhelper();
+        movieList.addAll(getJSON(search, "Movie"));
+        assertEquals(20,movieList.size());
+        movieList.clear();
+        movieList.addAll(getJSON(search, "TV"));
+        assertTrue(movieList.size() > 0);
+
+
     }
 
     @After

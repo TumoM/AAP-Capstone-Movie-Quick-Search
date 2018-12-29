@@ -1,5 +1,8 @@
 package com.example.android.themoviecompanion.Utils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +19,10 @@ public class JSONhelper{
 
     private static ArrayList<Movie> data;
 
-
+    public static ArrayList<Movie> getJSON(String type)    {
+        ArrayList<Movie> list = getJSON("Batman", type);
+        return list;
+    }
     public static ArrayList<Movie> getJSON(String search, String type){
 
         try{
@@ -28,7 +34,7 @@ public class JSONhelper{
             else{
                 baseURL = HTTPConstants.baseURLSerachTV;
             }
-
+            //search = search.replaceAll("\\s+","+");
             URL url1 = new URL(baseURL + search);
             HttpURLConnection connection = (HttpURLConnection) url1.openConnection();
             connection.connect();
@@ -40,12 +46,19 @@ public class JSONhelper{
             while ((line=reader.readLine())!=null){
                 buffer.append(line);
                 String result = buffer.toString();
+                String temp = result.split(",")[1];
+                Gson g = new GsonBuilder().create();
+                g.toJson(result);
+                //Player p = g.fromJson(jsonString, Player.class)
+                JSONObject totalResults = new JSONObject(result);
                 JSONObject tempObj = new JSONObject(result);
-
+                int resultsNum = (int) totalResults.get("total_results");
+                //JSONArray tempArr = new JSONObject(result.toString());
+                //JSONArray tempArray = new JSONArray(result);
                 // Checks if any results were found. i.e more than 0
                 if ((int)tempObj.get("total_results") > 0) {
                     // Creates an array holding all the results found.
-                    JSONArray jsonArray = (JSONArray) tempObj.get("results");
+                    JSONArray jsonArray = (JSONArray) tempObj.getJSONArray("results");
                     data = new ArrayList<>();
 
                     //
