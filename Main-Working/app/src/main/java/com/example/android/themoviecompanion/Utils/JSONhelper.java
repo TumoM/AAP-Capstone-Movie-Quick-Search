@@ -1,7 +1,8 @@
 package com.example.android.themoviecompanion.Utils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,16 +16,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+/*
+* A helper class that handles the bulk of the JSON parsing. Making and building the request before
+* parsing the JSON to a Movie object.
+*/
 public class JSONhelper{
-
     private static ArrayList<Movie> data;
 
-    public static ArrayList<Movie> getJSON(String type)    {
-        ArrayList<Movie> list = getJSON("Batman", type);
-        return list;
-    }
-    public static ArrayList<Movie> getJSON(String search, String type){
 
+    /**
+     *
+     * @param search The search query of the Movie or TV Show.
+     * @param type A movie or TV Show.
+     * @return A list of the movies found.
+     */
+    public static ArrayList<Movie> getJSON(String search, String type){
         try{
             String baseURL;
             // Checks if the user is searching for a Movie entry or TV show.
@@ -47,8 +53,8 @@ public class JSONhelper{
                 buffer.append(line);
                 String result = buffer.toString();
                 String temp = result.split(",")[1];
-                Gson g = new GsonBuilder().create();
-                g.toJson(result);
+                //Gson g = new GsonBuilder().create();
+                //g.toJson(result);
                 //Player p = g.fromJson(jsonString, Player.class)
                 JSONObject totalResults = new JSONObject(result);
                 JSONObject tempObj = new JSONObject(result);
@@ -73,7 +79,8 @@ public class JSONhelper{
         return data;
     }
 
-    /** Takes in a JSONArray and parses it to assign the correct metadata to a new movie object, returning it.
+    /**
+     * Takes in a JSONArray and parses it to assign the correct metadata to a new movie object, returning it.
      * @param jsonArray The Array containing the media queries from the API
      * @param type Movie or TV Show
      * @return A movie object

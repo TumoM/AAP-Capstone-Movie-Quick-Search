@@ -13,7 +13,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -44,11 +46,24 @@ public class DatabasehelperTest {
     }
 
     @Test
-    public void database_helper_init() {
+    public void database_insert_init() throws Exception{
         assertNotNull(dbTest);
-        assertEquals(0, dbTest.getMoviesCount());
         dbTest.insertMovie(movie);
         assertEquals(1, dbTest.getMoviesCount());
+    }
+
+    @Test
+    public void database_count_test() {
+        assertEquals(0, dbTest.getAllFavouriteMovies().size());
+        dbTest.insertMovie(movie);
+        assertEquals(1, dbTest.getAllFavouriteMovies().size());
+    }
+
+    @Test
+    public void databse_present(){
+        assertFalse(dbTest.isPresent(movie));
+        dbTest.insertMovie(movie);
+        assertTrue(dbTest.isPresent(movie));
     }
 
     @After

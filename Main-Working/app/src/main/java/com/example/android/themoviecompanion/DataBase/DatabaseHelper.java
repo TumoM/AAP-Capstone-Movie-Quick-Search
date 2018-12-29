@@ -14,6 +14,9 @@ import java.util.List;
 
 import static com.example.android.themoviecompanion.DataBase.DbMovie.TABLE_NAME;
 
+/*
+An SQLiteOpenHelper class that defines methods for creating the database as well as CRUD operations.
+*/
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
@@ -49,9 +52,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
+        // Setting the values to be stored
         ContentValues values = new ContentValues();
-        // `id` and `timestamp` will be inserted automatically.
-        // no need to add them
         byte[] imgConvert = DbBitmapUtility.getBytes(movie.getPoster());
         values.put(DbMovie.COLUMN_ID, movie.getId());
         values.put(DbMovie.COLUMN_TITLE, movie.getTitle());

@@ -9,9 +9,6 @@ import com.example.android.themoviecompanion.Utils.Movie;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 
@@ -25,8 +22,8 @@ import static org.junit.Assert.assertTrue;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(RobolectricTestRunner.class)
-//@Config(manifest=Config.NONE)
+
+// @RunWith(MockitoJUnitRunner.class)
 public class JSONTest {
 
     ArrayList<Movie> movieList;
@@ -34,7 +31,6 @@ public class JSONTest {
 
     @Before
     public void setUp(){
-        context = RuntimeEnvironment.application;
         movieList = new ArrayList<>();
         JSONhelper jsonHelper = new JSONhelper();
         //String search = "Batman";

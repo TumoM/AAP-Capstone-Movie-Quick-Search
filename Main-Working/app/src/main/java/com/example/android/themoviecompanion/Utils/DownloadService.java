@@ -6,6 +6,10 @@ import android.support.annotation.Nullable;
 
 import com.example.android.themoviecompanion.Activities.ResultsActivity;
 
+/*
+ The download service that downloads the JSON data from the external web service.
+*/
+
 public class DownloadService extends IntentService {
 
     public DownloadService(){
@@ -21,7 +25,8 @@ public class DownloadService extends IntentService {
     }
 
 
-    // handles the service calls, in tern calling the AsyncTask method to download json in the background.
+    // handles the service calls, in tern calling the AsyncTask method to download JSON data
+    // in the background.
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         ResultsActivity.getData();

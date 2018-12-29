@@ -9,16 +9,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 //import androidx.test.core.app.ApplicationProvider;
 
@@ -27,20 +28,32 @@ import static org.junit.Assert.assertTrue;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = "app/src/main/AndroidManifest.xml", sdk = 19)
+
+@RunWith(MockitoJUnitRunner.class)
 public class DatabaseUnitTest {
 
-    DatabaseHelper dbTest, dbTest2;
+
     Movie movie;
-    Context context, context2;
+    Context context2;
+
+    @Mock
+    private DatabaseHelper dbTest;
+
+    @Mock
+    private Context context, newContext, mContext;
+
+
 
     @Before
-    public void setUp(){
+    public void setUp() throws Exception{
         // context = RuntimeEnvironment.application;
-        context = ApplicationProvider.getApplicationContext();
-        context2 = RuntimeEnvironment.application;
+
 //        dbTest  = new DatabaseHelper(context2);
+        mContext = Mockito.mock(Context.class);
+        Mockito.when(mContext.getApplicationContext()).thenReturn(mContext);
+        newContext = InstrumentationRegistry.getInstrumentation().getContext();
+        context = mock(Context.class);
+        dbTest = new DatabaseHelper(newContext);
         movie = new Movie();
         movie.setId(9999);
         movie.setTitle("Batman Test Case");
@@ -61,12 +74,16 @@ public class DatabaseUnitTest {
 
     @Test
     public void database_count_test() {
-        assertTrue(dbTest.getAllFavouriteMovies().size() == 0);
+        assertEquals(0, dbTest.getAllFavouriteMovies().size());
+        dbTest.insertMovie(movie);
+        assertEquals(1, dbTest.getAllFavouriteMovies().size());
     }
 
     @Test
     public void databse_present(){
         assertFalse(dbTest.isPresent(movie));
+        dbTest.insertMovie(movie);
+        assertTrue(dbTest.isPresent(movie));
     }
 
     @After

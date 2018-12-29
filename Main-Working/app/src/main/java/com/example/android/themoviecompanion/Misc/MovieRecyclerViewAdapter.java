@@ -17,11 +17,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/*
+ A recycler adapter that uses JSON provided by an external web service to set the information for
+ a Movie object.
+*/
+
 public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.ViewHolder> {
     private List<Movie> movieList;
     private Context context;
 
-    // Provide a suitable constructor (depends on the kind of dataset)
+
     public MovieRecyclerViewAdapter(Context context, List<Movie> movies) {
         this.context = context;
         movieList = movies;
@@ -50,8 +55,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        if (holder instanceof RecyclerView.ViewHolder) {
-            RecyclerView.ViewHolder rowHolder = (RecyclerView.ViewHolder) holder;
+        if (holder != null) {
             Movie movie = movieList.get(position);
             String posterURI = movie.getPosterPath();
             holder.mTitle.setText(movie.getTitle());
@@ -83,15 +87,15 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
             mCatagory = (TextView) v.findViewById(R.id.movieCatoagory);
             mPoster = (ImageView) v.findViewById(R.id.posterImage);
 
-            // mListener = listener;
+            /*
+             *  The onClick listener that builds the intent to show the correct views in the DetailsActivity
+             *  class
+             */
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     Movie movie = movieList.get(getAdapterPosition());
-
                     Intent intent = new Intent(v.getContext(), DetailsActivity.class);
-
                     intent.putExtra("movie", movie);
                     context.startActivity(intent);
 

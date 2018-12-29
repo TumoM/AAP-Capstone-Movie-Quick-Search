@@ -5,15 +5,20 @@ import com.example.android.themoviecompanion.Utils.Movie;
 
 import java.io.Serializable;
 
-public class DbMovie implements Serializable {
-    public static final String TABLE_NAME = "movies";
+/*
+A class that defines the schema of Database. The name, columns and methods for this object.
+*/
 
-    public static final String COLUMN_ID = "id";
-    public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_YEAR = "year";
-    public static final String COLUMN_PLOT = "plot";
-    public static final String COLUMN_POSTER = "poster";
-    public static final String COLUMN_TYPE = "type";
+public class DbMovie implements Serializable {
+
+    // Declare static fields for referencing throughout the package.
+    static final String TABLE_NAME = "movies";
+    static final String COLUMN_ID = "id";
+    static final String COLUMN_TITLE = "title";
+    static final String COLUMN_YEAR = "year";
+    static final String COLUMN_PLOT = "plot";
+    static final String COLUMN_POSTER = "poster";
+    static final String COLUMN_TYPE = "type";
 
     private int id;
     private  String title;
@@ -24,7 +29,7 @@ public class DbMovie implements Serializable {
 
 
     // Create table SQL query
-    public static final String CREATE_TABLE =
+    static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_TITLE + " Movie Title,"
@@ -37,6 +42,9 @@ public class DbMovie implements Serializable {
     public DbMovie() {
     }
 
+    /*
+    * A constructor for the raw inputs
+    */
     public DbMovie(int id, String title, String year, String plot, byte[] poster, String type) {
         this.id = id;
         this.title = title;
@@ -45,6 +53,9 @@ public class DbMovie implements Serializable {
         this.poster = poster;
         this.type = type;
 
+    /*
+     * A constructor taking in a Movie object, the kind used when getting the JSON data.
+     */
     }public DbMovie(Movie movie) {
         this.id = movie.getId();
         this.title = movie.getTitle();
@@ -98,7 +109,10 @@ public class DbMovie implements Serializable {
 
     public void setType(String type){ this.type = type;}
 
-    public Movie toMovie(DbMovie o){
+    /*
+     * A static method for converting this class, DbMovie to a standard Movie object.
+     */
+    public static Movie toMovie(DbMovie o){
         Movie movie = new Movie();
         movie.setId(o.getId());
         movie.setTitle(o.getTitle());

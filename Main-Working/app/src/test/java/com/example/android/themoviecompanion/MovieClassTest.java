@@ -1,6 +1,5 @@
 package com.example.android.themoviecompanion;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 
 import com.example.android.themoviecompanion.Utils.Movie;
@@ -14,7 +13,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 
-public class MovieClassTest extends Activity {
+public class MovieClassTest{
 
     Movie movie;
     public static String testPlot = "This is a test plot for test purposes";

@@ -18,11 +18,15 @@ import com.example.android.themoviecompanion.Utils.DbBitmapUtility;
 
 import java.util.List;
 
+/*
+ A recycler adapter that uses a content provider to set the information from a DbMovie object stored
+ in the SQLite table.
+*/
+
 public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<FavouritesRecyclerViewAdapter.ViewHolder> {
     private List<DbMovie> movieList;
     private Context context;
 
-    // Provide a suitable constructor (depends on the kind of dataset)
     public FavouritesRecyclerViewAdapter(Context context, List<DbMovie> movies) {
         this.context = context;
         movieList = movies;
@@ -46,13 +50,12 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
     }
 
 
-    // Replace the contents of a view (invoked by the layout manager)
+    // Replace the contents of a view with the DbMovie field data (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        if (holder instanceof RecyclerView.ViewHolder) {
-            RecyclerView.ViewHolder rowHolder = (RecyclerView.ViewHolder) holder;
+        if (holder != null) {
             DbMovie movie = movieList.get(position);
             byte[] posterURI = movie.getPoster();
             Bitmap poster = DbBitmapUtility.getImage(movie.getPoster());
@@ -84,15 +87,15 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
             mCatagory = (TextView) v.findViewById(R.id.movieCatoagory);
             mPoster = (ImageView) v.findViewById(R.id.posterImage);
 
-            // mListener = listener;
+            /*
+            *  The onClick listener that builds the intent to show the correct views in the DetailsActivity
+            *  class
+            */
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     DbMovie movie = movieList.get(getAdapterPosition());
-
                     Intent intent = new Intent(v.getContext(), DetailsActivity.class);
-
                     intent.putExtra("movie", movie.getId());
                     intent.setFlags(movie.getId());
                     context.startActivity(intent);

@@ -5,6 +5,10 @@ import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
 
+/*
+ *  This utility class converts between a byte array and a bitmap image. Static methods are provided
+ *  for conversion both ways.
+ */
 public class DbBitmapUtility {
 
     // convert from bitmap to byte array if not null
