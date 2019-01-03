@@ -26,10 +26,12 @@ A content provider will be used to maintain a local persistant storage of all
 user data. This will be an SQL database that stores favourite movies the user liked.
 Maybe all search history will also be stored.
 
+## SQLite Database
+The SQLite databse stores a list of movies/shows the user has clicked as a favourite.
+
 ## Services
 Services will be used for any (asynchronous) network requests that the app will need to make to
-the api. I mean the application will listen for changes in network state, and promt the user,
-with a toast message, to reconnect before making any further searches.
+the api. This will be to make the search queries and handle the JSON data that is returned.
 
 ## Online Service
 The Movie DB, a database api that stores information on movies and tv shows.: https://www.themoviedb.org/documentation/api .
