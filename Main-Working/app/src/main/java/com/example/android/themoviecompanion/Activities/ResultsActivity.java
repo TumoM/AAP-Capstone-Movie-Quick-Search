@@ -39,15 +39,16 @@ public class ResultsActivity extends AppCompatActivity {
     Network network;
     static String search;
     static Context context2;
+    static Context AppContext;
     static TextView noResult;
     private static String mediaType;
 
 
     static DatabaseHelper db;
 
-
-
-
+    public static Context getAppContext() {
+            return ResultsActivity.AppContext;
+        }
 
 
     @Override
@@ -56,6 +57,7 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
 
         context2 = this;
+        ResultsActivity.AppContext = getApplicationContext();
         noResult = (TextView) findViewById(R.id.statusResultsTextView);
         mediaType = getIntent().getStringExtra("Type");
         db = new DatabaseHelper(context2);

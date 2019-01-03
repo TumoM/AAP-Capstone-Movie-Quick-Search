@@ -10,13 +10,14 @@ import static com.example.android.themoviecompanion.MovieClassTest.testPlot;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
-
+/*
+* A unit test for the DBMovie Class.
+**/
 public class DBMovieClassTest {
 
-    DbMovie dbMovie;
-    Movie movie;
+    private DbMovie dbMovie;
+    private Movie movie;
     @Before
     public void setUp(){
         movie = new Movie();
@@ -36,7 +37,7 @@ public class DBMovieClassTest {
     public void testDbMovieObjectCreated(){
         dbMovie = new DbMovie();
         assertNotNull(dbMovie);
-        assertTrue(dbMovie.getId() == 0);
+        assertEquals(0, dbMovie.getId());
         assertNull(dbMovie.getTitle());
         assertNull(dbMovie.getYear());
         assertNull(dbMovie.getPlot());
@@ -71,6 +72,7 @@ public class DBMovieClassTest {
     @Test
     public void testDbMovieObjectSetters(){
         DbMovie dbMovie = new DbMovie();
+        assertNull(dbMovie);
         dbMovie.setId(0020);
         dbMovie.setTitle("Batman 3rd Test Case");
         dbMovie.setYear("2018");

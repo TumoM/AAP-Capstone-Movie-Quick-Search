@@ -25,6 +25,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "movies";
 
+    /*public DatabaseHelper() {
+        super(null, DATABASE_NAME, null, DATABASE_VERSION);
+    }*/
+
+    public DatabaseHelper() {
+        this(null);
+    }
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

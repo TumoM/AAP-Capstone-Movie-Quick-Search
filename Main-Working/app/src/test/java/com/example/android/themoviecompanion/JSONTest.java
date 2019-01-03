@@ -1,7 +1,5 @@
 package com.example.android.themoviecompanion;
 
-import android.content.Context;
-
 import com.example.android.themoviecompanion.Activities.ResultsActivity;
 import com.example.android.themoviecompanion.Utils.JSONhelper;
 import com.example.android.themoviecompanion.Utils.Movie;
@@ -26,25 +24,21 @@ import static org.junit.Assert.assertTrue;
 // @RunWith(MockitoJUnitRunner.class)
 public class JSONTest {
 
-    ArrayList<Movie> movieList;
-    Context context;
+    private ArrayList<Movie> movieList;
+    private String search = "Batman";
+    private String[] inputs = {search, "Movie"};
 
     @Before
     public void setUp(){
         movieList = new ArrayList<>();
         JSONhelper jsonHelper = new JSONhelper();
-        //String search = "Batman";
-        //movieList.addAll(jsonHelper.getJSON(search, "Movie"));
     }
 
     @Test
     public void database_helper_init() {
         assertNotNull(movieList);
         assertEquals(0,movieList.size());
-        String search = "Batman";
-        String[] inputs = {search, "Movie"};
         new ResultsActivity.Viewdata().execute(inputs);
-        JSONhelper jsonHelper = new JSONhelper();
         movieList.addAll(getJSON(search, "Movie"));
         assertEquals(20,movieList.size());
         movieList.clear();

@@ -22,62 +22,56 @@ import java.util.ArrayList;
 */
 public class JSONhelper{
     private static ArrayList<Movie> data;
-
-
     /**
-     *
+     * Makes the network request based on a Movie or TV Show search. It parses the response into a
+     * JSONArray, which is passed to parseJSONArray to get the list of Movie objects to return.
      * @param search The search query of the Movie or TV Show.
      * @param type A movie or TV Show.
      * @return A list of the movies found.
      */
-    public static ArrayList<Movie> getJSON(String search, String type){
-        try{
+    public static ArrayList<Movie> getJSON(String search, String type) {
+        try {
             String baseURL;
             // Checks if the user is searching for a Movie entry or TV show.
-            if (type.equals("Movie")){
+            if (type.equals("Movie")) {
                 baseURL = HTTPConstants.baseURLSerachMovie;
-            }
-            else{
+            } else {
                 baseURL = HTTPConstants.baseURLSerachTV;
             }
             //search = search.replaceAll("\\s+","+");
             URL url1 = new URL(baseURL + search);
             HttpURLConnection connection = (HttpURLConnection) url1.openConnection();
             connection.connect();
-            InputStream inputStream= connection.getInputStream();
+            InputStream inputStream = connection.getInputStream();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
             StringBuilder buffer = new StringBuilder();
-            while ((line=reader.readLine())!=null){
+            while ((line = reader.readLine()) != null) {
                 buffer.append(line);
-                String result = buffer.toString();
-                String temp = result.split(",")[1];
-                //Gson g = new GsonBuilder().create();
-                //g.toJson(result);
-                //Player p = g.fromJson(jsonString, Player.class)
-                JSONObject totalResults = new JSONObject(result);
-                JSONObject tempObj = new JSONObject(result);
-                int resultsNum = (int) totalResults.get("total_results");
-                //JSONArray tempArr = new JSONObject(result.toString());
-                //JSONArray tempArray = new JSONArray(result);
-                // Checks if any results were found. i.e more than 0
-                if ((int)tempObj.get("total_results") > 0) {
-                    // Creates an array holding all the results found.
-                    JSONArray jsonArray = (JSONArray) tempObj.getJSONArray("results");
-                    data = new ArrayList<>();
+            }
+            String result = buffer.toString();
 
-                    //
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        data.add(parseJSONArray(jsonArray, type, i));
-                    }
-                    }
+            JSONObject tempObj = new JSONObject(result);
+
+            // Checks if any results were found. i.e more than 0
+            if ((int) tempObj.get("total_results") > 0) {
+                // Creates an array holding all the results found.
+                JSONArray jsonArray = (JSONArray) tempObj.getJSONArray("results");
+                data = new ArrayList<>();
+
+                // Calls the parseJSONArray function, passing in an index, i, and a type, of media,
+                // and appending the result to the List 'data'.
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    data.add(parseJSONArray(jsonArray, type, i));
                 }
+            }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         return data;
     }
+
 
     /**
      * Takes in a JSONArray and parses it to assign the correct metadata to a new movie object, returning it.

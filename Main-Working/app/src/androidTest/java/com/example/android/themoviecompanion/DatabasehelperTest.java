@@ -18,9 +18,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Instrumentation test for assessing methods on the SQLite Database implemented in this app.
  */
 @RunWith(AndroidJUnit4.class)
 public class DatabasehelperTest {
