@@ -1,9 +1,5 @@
 package com.example.android.themoviecompanion.Utils;
 
-
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +16,7 @@ import java.util.ArrayList;
 * A helper class that handles the bulk of the JSON parsing. Making and building the request before
 * parsing the JSON to a Movie object.
 */
-public class JSONhelper{
+public class JSONHelper {
     private static ArrayList<Movie> data;
     /**
      * Makes the network request based on a Movie or TV Show search. It parses the response into a
@@ -38,12 +34,14 @@ public class JSONhelper{
             } else {
                 baseURL = HTTPConstants.baseURLSerachTV;
             }
-            //search = search.replaceAll("\\s+","+");
-            URL url1 = new URL(baseURL + search);
-            HttpURLConnection connection = (HttpURLConnection) url1.openConnection();
+
+            // Builds the URL request with the baseURL and Search Term.
+            URL url = new URL(baseURL + search);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             InputStream inputStream = connection.getInputStream();
 
+            // The received data stream is now handled and is converted into a JSONObject.
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
             StringBuilder buffer = new StringBuilder();
@@ -51,7 +49,6 @@ public class JSONhelper{
                 buffer.append(line);
             }
             String result = buffer.toString();
-
             JSONObject tempObj = new JSONObject(result);
 
             // Checks if any results were found. i.e more than 0

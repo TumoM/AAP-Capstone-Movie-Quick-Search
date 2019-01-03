@@ -20,19 +20,12 @@ An SQLiteOpenHelper class that defines methods for creating the database as well
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     // Database Name
-    private static final String DATABASE_NAME = "movies";
+    private static final String DATABASE_NAME = "favourites";
 
-    /*public DatabaseHelper() {
-        super(null, DATABASE_NAME, null, DATABASE_VERSION);
-    }*/
-
-    public DatabaseHelper() {
-        this(null);
-    }
-
+    // Constructor
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -41,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        // create notes table
+        // create favourites table
         db.execSQL(DbMovie.CREATE_TABLE);
     }
 
@@ -94,7 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        // prepare note object
+        // prepare DbMovie object that will be returned from the query.
         DbMovie note = new DbMovie(
                 cursor.getInt(cursor.getColumnIndex(DbMovie.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(DbMovie.COLUMN_TITLE)),
@@ -110,8 +103,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return note;
     }
 
+    /**
+     *  Checks if an equivalent Movie object is present in the Database that stores DbMovie objects.
+     * @param movie The media to check if present in database.
+     * @return true/present or false/not-found,
+     */
     public boolean isPresent(Movie movie){
-        List<DbMovie> list = getAllFavouriteMovies();
+        List<DbMovie> list = getAllFavouritesList();
         if (list.size() == 0){return false;}
         for (DbMovie dbmovie: list) {
             if (dbmovie.getId() == movie.getId()){return true;}
@@ -119,7 +117,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public List<DbMovie> getAllFavouriteMovies() {
+
+    /**
+     * Returns a List of type DbMovie, that contains the list of all media stored in the database.
+     * @return
+     */
+    public List<DbMovie> getAllFavouritesList() {
         List<DbMovie> notes = new ArrayList<>();
 
         // Select All Query
@@ -128,7 +131,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
+        // looping through all rows and adding to list after building it in a DbObject movie
         if (cursor.moveToFirst()) {
             do {
                 DbMovie movie = new DbMovie();
@@ -151,6 +154,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return notes;
     }
 
+    /**
+     * Gets the number of items stored in the database.
+     * @return
+     */
     public int getMoviesCount() {
         String countQuery = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -164,6 +171,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
+
+    /**
+     * Deletes a media record from the database.
+     * @param id
+     */
     public void deleteMovie(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, DbMovie.COLUMN_ID + " = ?",

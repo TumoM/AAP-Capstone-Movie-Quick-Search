@@ -18,6 +18,8 @@ public class DBMovieClassTest {
 
     private DbMovie dbMovie;
     private Movie movie;
+
+    // Sets up a Movie object for future testing.
     @Before
     public void setUp(){
         movie = new Movie();
@@ -33,6 +35,7 @@ public class DBMovieClassTest {
 
     }
 
+    // Tests that the DbMovie object was created, with fields at expected null/0 values
     @Test
     public void testDbMovieObjectCreated(){
         dbMovie = new DbMovie();
@@ -45,6 +48,7 @@ public class DBMovieClassTest {
         assertNull(dbMovie.getTitle());
     }
 
+    // Tests the constructor taking in a Movie Object parameter.
     @Test
     public void testDbMovieObjectConstructor(){
         dbMovie = new DbMovie(movie);
@@ -57,6 +61,7 @@ public class DBMovieClassTest {
         assertNull(dbMovie.getPoster());
     }
 
+    // Tests the constructor taking in parameters for each local field.
     @Test
     public void testDbMovieObjectConstructor2(){
         DbMovie dbMovie = new DbMovie(0000,"Batman 2nd Test Case","4018-12-1",
@@ -69,6 +74,7 @@ public class DBMovieClassTest {
         assertNull(dbMovie.getPoster());
     }
 
+    // Tests the setter methods.
     @Test
     public void testDbMovieObjectSetters(){
         DbMovie dbMovie = new DbMovie();
@@ -89,10 +95,11 @@ public class DBMovieClassTest {
     }
 
 
+    // Tests the conversion method from a DbMovie object into a Movie object.
     @Test
     public void testDbMovieToMovie(){
         DbMovie dbMovie = new DbMovie(movie);
-        Movie movie2 = dbMovie.toMovie(dbMovie);
+        Movie movie2 = DbMovie.toMovie(dbMovie);
 
         assertNotNull(movie2);
         assertEquals(9999, movie2.getId());

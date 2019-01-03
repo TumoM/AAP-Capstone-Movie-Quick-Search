@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 /*
@@ -14,6 +13,7 @@ import android.widget.Toast;
  */
 public class MyBroadcastReceiver extends BroadcastReceiver {
     static boolean flag = false;
+
     static public boolean getFlag(){return flag;}
 
     /*
@@ -21,8 +21,9 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     */
     public boolean isOnline(Context context) {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connMgr != null;
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
+        return (networkInfo != null && networkInfo.isConnected()); // True if not null and network is connected.
     }
 
 
@@ -36,17 +37,15 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         Bundle extras = intent.getExtras();
         Intent i = new Intent("connectionStatus");
         i.putExtra("connected", connected);
-        context.sendBroadcast(i);
+        context.sendBroadcast(i); // Returns the update of network change to the registered receivers.
 
-        Log.i("Test Tag", "Testing if network is available");
         // Checks if network is available
         if (connected) {
+            assert networkManager != null;
             currentConnection = networkManager.getActiveNetworkInfo();
             String type = currentConnection.getTypeName();
             flag = true;
-            Log.i("NETWORK INFO", type);
         } else { // If not connected
-            Log.i("NETWORK INFO", "Network Unavailable");
             flag = false;
             Toast.makeText(context, "Network is unavailable", Toast.LENGTH_LONG).show();
         }

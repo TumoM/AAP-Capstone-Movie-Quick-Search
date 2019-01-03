@@ -26,11 +26,14 @@ public class FavouritesActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private TextView noResultTextView;
 
+
+    // Updates the Recycler View in the case that media is removed from the favourites database in the Details
+    // Activity, and focus is returned to this Activity.
     @Override
     protected void onPostResume() {
         super.onPostResume();
         if (movieList != null){movieList.clear();}
-        movieList.addAll((ArrayList<DbMovie>) db.getAllFavouriteMovies());
+        movieList.addAll((ArrayList<DbMovie>) db.getAllFavouritesList());
         if (favouritesRecyclerViewAdapter != null) {
             favouritesRecyclerViewAdapter.notifyDataSetChanged();
         }
@@ -49,9 +52,10 @@ public class FavouritesActivity extends AppCompatActivity {
 
         movieList = new ArrayList<>();
         db = new DatabaseHelper(this);
-        if (db.getMoviesCount() > 0) {
+        if (db.getMoviesCount() > 0) { // If database is not empty.
+            // Sets up the Recycler View.
             noResultTextView.setVisibility(View.INVISIBLE);
-            movieList.addAll((ArrayList<DbMovie>) db.getAllFavouriteMovies());
+            movieList.addAll((ArrayList<DbMovie>) db.getAllFavouritesList());
             recyclerView.setHasFixedSize(true);
             recyclerLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(recyclerLayoutManager);
@@ -60,6 +64,7 @@ public class FavouritesActivity extends AppCompatActivity {
             recyclerView.setAdapter(favouritesRecyclerViewAdapter);
         }
         else{ noResultTextView.setVisibility(View.VISIBLE);
-            noResultTextView.setText("No results found!!!");}
+            // Updates on-screen text to notify the user that no records where found.
+            noResultTextView.setText("No records found!!!");}
     }
 }

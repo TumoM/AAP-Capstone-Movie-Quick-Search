@@ -1,16 +1,14 @@
 package com.example.android.themoviecompanion;
 
 import com.example.android.themoviecompanion.Activities.ResultsActivity;
-import com.example.android.themoviecompanion.Utils.JSONhelper;
 import com.example.android.themoviecompanion.Utils.Movie;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static com.example.android.themoviecompanion.Utils.JSONhelper.getJSON;
+import static com.example.android.themoviecompanion.Utils.JSONHelper.getJSON;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -31,11 +29,11 @@ public class JSONTest {
     @Before
     public void setUp(){
         movieList = new ArrayList<>();
-        JSONhelper jsonHelper = new JSONhelper();
     }
 
+    // Tests that the JSONHelper Utility class returns some data, in the appropriate format.
     @Test
-    public void database_helper_init() {
+    public void json_download() {
         assertNotNull(movieList);
         assertEquals(0,movieList.size());
         new ResultsActivity.Viewdata().execute(inputs);
@@ -46,10 +44,5 @@ public class JSONTest {
         assertTrue(movieList.size() > 0);
 
 
-    }
-
-    @After
-    public void tearDown() {
-        int x = 0;
     }
 }

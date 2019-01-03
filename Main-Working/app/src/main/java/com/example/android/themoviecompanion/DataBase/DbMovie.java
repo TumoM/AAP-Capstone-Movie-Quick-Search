@@ -20,6 +20,7 @@ public class DbMovie implements Serializable {
     static final String COLUMN_POSTER = "poster";
     static final String COLUMN_TYPE = "type";
 
+    // Local variables.
     private int id;
     private  String title;
     private  String year;
@@ -28,7 +29,7 @@ public class DbMovie implements Serializable {
     private  String type;
 
 
-    // Create table SQL query
+    // Create table SQL query.
     static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -65,6 +66,7 @@ public class DbMovie implements Serializable {
         this.type = movie.getType();
     }
 
+    // Getter Methods
     public int getId() {
         return id;
     }
@@ -91,6 +93,7 @@ public class DbMovie implements Serializable {
         this.id = id;
     }
 
+    // Setter Methods
     public void setTitle(String title) {
         this.title = title;
     }

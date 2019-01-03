@@ -4,13 +4,17 @@ import android.graphics.Bitmap;
 
 import java.io.Serializable;
 
+/**
+ *  The Movie Class is a template class that is used to store the information of a Movie/TV Show that
+ *  has been downloaded in a JSON format.
+ */
 public class Movie implements Serializable {
-    String title, year, posterPath, plot, type;
-    int id;
-    Bitmap poster;
+    // Local Variables
+    private String title, year, posterPath, plot, type;
+    private int id;
+    private Bitmap poster;
 
-    public Movie (){}
-
+    // Getter Methods.
     public String getType(){return type;}
 
     public String getPosterPath() {
@@ -35,6 +39,8 @@ public class Movie implements Serializable {
         return poster;
     }
 
+
+    // Setter Methods.
     public void setTitle(String title) {
         this.title = title;
     }

@@ -33,8 +33,10 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        // The Database
         db = new DatabaseHelper(this);
 
+        // Android related variables and views
         title = findViewById(R.id.movieTitle);
         year = findViewById(R.id.movieYear);
         plot = findViewById(R.id.plotText);
@@ -46,14 +48,19 @@ public class DetailsActivity extends AppCompatActivity {
         try {
             int iDtest = getIntent().getIntExtra("movie",0);
         DbMovie movieTemp = db.getMovie(iDtest);
-        movie = movieTemp.toMovie(movieTemp);
+        movie = DbMovie.toMovie(movieTemp);
         }
         catch (Exception e){
             movie = ((Movie) getIntent().getSerializableExtra("movie"));
         }
+
+        // If the poster field is null (i.e a Movie object), it is fetched via a network request.
         if (movie.getPoster() == null){
         Picasso.get().load(movie.getPosterPath()).placeholder(android.R.drawable.ic_btn_speak_now).into(poster);}
-                else{poster.setImageBitmap(movie.getPoster());}
+                else{poster.setImageBitmap(movie.getPoster());
+        }
+
+        // Sets the data that is displayed in the activity.
         title.setText(movie.getTitle());
         year.setText(movie.getYear());
         String plotText = "Plot: " + movie.getPlot();

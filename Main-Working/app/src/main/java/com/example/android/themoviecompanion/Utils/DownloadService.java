@@ -12,24 +12,19 @@ import com.example.android.themoviecompanion.Activities.ResultsActivity;
 
 public class DownloadService extends IntentService {
 
-    public DownloadService(){
-        super(null);
-    }
-    /**
-     * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     * @param name Used to name the worker thread, important only for debugging.
-     */
+
+    // Default constructor
     public DownloadService(String name) {
         super(name);
     }
-
 
     // handles the service calls, in tern calling the AsyncTask method to download JSON data
     // in the background.
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        ResultsActivity.getData();
+        assert intent != null;
+        String[] inputs = {intent.getStringExtra("Search"), intent.getStringExtra("Type")};
+        new ResultsActivity.Viewdata().execute(inputs);
 
     }
 

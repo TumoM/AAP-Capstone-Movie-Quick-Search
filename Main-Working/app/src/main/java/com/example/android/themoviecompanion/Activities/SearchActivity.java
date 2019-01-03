@@ -18,26 +18,27 @@ import com.example.android.themoviecompanion.R;
 
 public class SearchActivity extends AppCompatActivity{
     private EditText searchET;
-    private Button searchBT;
     private RadioGroup typeGroup;
-    private RadioButton typeSelect;
     Boolean connected = false;
-    public static String SELECTION_TYPE;
-
+    public String SELECTION_TYPE;
 
     public void onSearchClick(View view) {
         if (connected)  // connected to the internet
         {
             if (searchET.getText().length() > 0) // checking for a valid length input
             {
+                // Pulls data about media type from the radio buttons.
                 int selectedCategory = typeGroup.getCheckedRadioButtonId();
-                typeSelect = (RadioButton) findViewById(selectedCategory);
-                // Launches next Activity (Results)
+                RadioButton typeSelect = (RadioButton) findViewById(selectedCategory);
+
+                // Builds an intent that launches next Activity (Results), and adds the Search Term
+                // and Media Type to the intent before launching.
                 Intent intent = new Intent(this, ResultsActivity.class);
                 intent.putExtra("Search", searchET.getText().toString());
                 SELECTION_TYPE = typeSelect.getTag().toString();
                 intent.putExtra("Type", typeSelect.getTag().toString());
                 startActivity(intent);
+
             } else { // empty search box
                 Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show();
                 searchET.setText("");
@@ -47,7 +48,7 @@ public class SearchActivity extends AppCompatActivity{
             Toast.makeText(this, "Please try again with network connectivity", Toast.LENGTH_SHORT).show();
         }
     }
-    // An anonomys BroadcastReciever that listens for the connection status from the MyBroadcastReceiver
+    // An anonomys BroadcastReceiver that listens for the connection status from the MyBroadcastReceiver
     BroadcastReceiver connectionBroadcastReceiver =  new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -67,7 +68,7 @@ public class SearchActivity extends AppCompatActivity{
         setContentView(R.layout.activity_search);
 
         // Links components to variables
-        searchBT = (Button) findViewById(R.id.searchButton);
+        Button searchBT = (Button) findViewById(R.id.searchButton);
         searchET = (EditText) findViewById(R.id.searchEditText);
         typeGroup = (RadioGroup) findViewById(R.id.typeRadioGroup);
 

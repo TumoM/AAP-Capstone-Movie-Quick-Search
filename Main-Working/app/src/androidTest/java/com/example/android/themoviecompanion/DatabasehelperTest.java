@@ -52,9 +52,9 @@ public class DatabasehelperTest {
 
     @Test
     public void database_count_test() {
-        assertEquals(0, dbTest.getAllFavouriteMovies().size());
+        assertEquals(0, dbTest.getAllFavouritesList().size());
         dbTest.insertMovie(movie);
-        assertEquals(1, dbTest.getAllFavouriteMovies().size());
+        assertEquals(1, dbTest.getAllFavouritesList().size());
     }
 
     @Test

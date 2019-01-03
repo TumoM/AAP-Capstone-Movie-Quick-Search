@@ -27,12 +27,11 @@ public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<Favourit
     private List<DbMovie> movieList;
     private Context context;
 
+    // Constructor
     public FavouritesRecyclerViewAdapter(Context context, List<DbMovie> movies) {
         this.context = context;
         movieList = movies;
     }
-
-
 
     // Creates the method that will create and return the new view based on the layout file supplied.
     @NonNull

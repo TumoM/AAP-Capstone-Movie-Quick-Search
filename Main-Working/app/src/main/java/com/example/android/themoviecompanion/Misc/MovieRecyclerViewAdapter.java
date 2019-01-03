@@ -26,13 +26,11 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     private List<Movie> movieList;
     private Context context;
 
-
+    // Constructor
     public MovieRecyclerViewAdapter(Context context, List<Movie> movies) {
         this.context = context;
         movieList = movies;
     }
-
-
 
     // Creates the method that will create and return the new view based on the layout file supplied.
     @NonNull
